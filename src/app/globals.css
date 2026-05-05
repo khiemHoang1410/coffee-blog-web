@@ -1,0 +1,83 @@
+@import "tailwindcss";
+
+/* ─── Theme tokens — Tailwind v4 CSS-based config ────────────────────────── */
+@theme {
+  /* Fonts (CSS variables được declare ở layout.tsx qua next/font) */
+  --font-sans: var(--font-dm-sans), sans-serif;
+  --font-display: var(--font-cormorant), serif;
+
+  /* Coffee palette — giữ lại cho legacy components (contact, blog [slug]) */
+  --color-coffee-50: #fdf8f0;
+  --color-coffee-100: #faefd9;
+  --color-coffee-200: #f3d9ab;
+  --color-coffee-300: #eabc73;
+  --color-coffee-400: #e09a3d;
+  --color-coffee-500: #d4801e;
+  --color-coffee-600: #b96515;
+  --color-coffee-700: #974e14;
+  --color-coffee-800: #7a3f17;
+  --color-coffee-900: #643516;
+  --color-coffee-950: #381a09;
+
+  /* Brand palette mới — dark showroom */
+  --color-brand-bg: #0d0d0d;
+  --color-brand-surface: #1a1209;
+  --color-brand-text: #f5f0e8;
+  --color-brand-accent: #c9a84c;
+  --color-brand-muted: #6b5b45;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply text-brand-text antialiased;
+  }
+}
+
+/* ─── Scroll animations ───────────────────────────────────────────────────── */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.animate-fade-up {
+  animation: fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.animate-fade-in {
+  animation: fade-in 0.6s ease both;
+}
+
+/* Stagger delays */
+.delay-100 { animation-delay: 100ms; }
+.delay-200 { animation-delay: 200ms; }
+.delay-300 { animation-delay: 300ms; }
+.delay-400 { animation-delay: 400ms; }
+.delay-500 { animation-delay: 500ms; }
+
+/* Scroll-triggered: ẩn cho đến khi JS thêm class .in-view */
+.scroll-animate {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.scroll-animate.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
