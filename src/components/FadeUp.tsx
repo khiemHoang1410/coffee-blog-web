@@ -1,12 +1,15 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import type { ElementType } from "react";
 
 interface FadeUpProps {
   children: React.ReactNode;
   className?: string;
   delay?: number; // ms
-  as?: keyof JSX.IntrinsicElements;
+  as?: ElementType;
+  /** "up" | "down" | "left" | "right" | "scale" | "blur" */
+  direction?: "up" | "down" | "left" | "right" | "scale" | "blur";
 }
 
 export default function FadeUp({
@@ -14,6 +17,7 @@ export default function FadeUp({
   className = "",
   delay = 0,
   as: Tag = "div",
+  direction = "up",
 }: FadeUpProps) {
   const ref = useRef<HTMLElement>(null);
 
@@ -29,16 +33,24 @@ export default function FadeUp({
           observer.unobserve(el);
         }
       },
-      { threshold: 0.12 }
+      { threshold: 0.1 }
     );
 
     observer.observe(el);
     return () => observer.disconnect();
   }, [delay]);
 
+  const dirClass = {
+    up: "scroll-animate",
+    down: "scroll-animate-down",
+    left: "scroll-animate-left",
+    right: "scroll-animate-right",
+    scale: "scroll-animate-scale",
+    blur: "scroll-animate-blur",
+  }[direction];
+
   return (
-    // @ts-expect-error — dynamic tag
-    <Tag ref={ref} className={`scroll-animate ${className}`}>
+    <Tag ref={ref} className={`${dirClass} ${className}`}>
       {children}
     </Tag>
   );
