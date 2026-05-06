@@ -4,8 +4,6 @@ export const siteSettingsSchema = defineType({
   name: "siteSettings",
   title: "Thông tin quán",
   type: "document",
-  // Singleton — chỉ tồn tại một document duy nhất
-  __experimental_actions: ["update", "publish"],
   fields: [
     defineField({
       name: "siteName",

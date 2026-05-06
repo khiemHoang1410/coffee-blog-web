@@ -8,8 +8,8 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "*",
         allow: "/",
-        // Không index API routes
-        disallow: ["/api/"],
+        // Không index API routes và Sanity Studio
+        disallow: ["/api/", "/studio/"],
       },
     ],
     sitemap: `${SITE_URL}/sitemap.xml`,

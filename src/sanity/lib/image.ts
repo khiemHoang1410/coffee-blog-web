@@ -1,16 +1,8 @@
-import imageUrlBuilder from "@sanity/image-url";
-import type { ImageUrlBuilder } from "@sanity/image-url/lib/types/builder";
-import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
+import { createImageUrlBuilder } from "@sanity/image-url";
 import { sanityClient } from "./client";
 
-const builder = imageUrlBuilder(sanityClient);
+const builder = createImageUrlBuilder(sanityClient);
 
-/**
- * Build URL ảnh từ Sanity image reference.
- *
- * @example
- * urlFor(post.thumbnail).width(800).height(450).format("webp").url()
- */
-export function urlFor(source: SanityImageSource): ImageUrlBuilder {
+export function urlFor(source: Parameters<typeof builder.image>[0]) {
   return builder.image(source).auto("format");
 }
