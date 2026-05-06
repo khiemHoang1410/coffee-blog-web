@@ -4,30 +4,34 @@ import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 
 export default function ThemeToggle() {
-  const { theme, setTheme } = useTheme();
+  const { resolvedTheme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
-  // Tránh hydration mismatch
   useEffect(() => setMounted(true), []);
-  if (!mounted) return <div className="w-8 h-8" />;
 
-  const isDark = theme === "dark";
+  // Placeholder cùng kích thước để tránh layout shift
+  if (!mounted) return <div className="w-[34px] h-[18px]" />;
+
+  const isDark = resolvedTheme === "dark";
 
   return (
     <button
       onClick={() => setTheme(isDark ? "light" : "dark")}
       aria-label={isDark ? "Chuyển sang light mode" : "Chuyển sang dark mode"}
-      className="group relative w-8 h-8 flex items-center justify-center rounded-full hover:bg-brand-surface transition-colors duration-500"
+      className="group relative flex items-center justify-center"
     >
       {/* Track */}
-      <div className="relative w-[34px] h-[18px] rounded-full border border-brand-border bg-brand-surface transition-colors duration-300 group-hover:border-brand-accent/50">
-        {/* Thumb */}
+      <div className="relative w-[34px] h-[18px] rounded-full border border-brand-border bg-brand-surface group-hover:border-brand-accent/50"
+        style={{ transition: "border-color 0.3s ease" }}
+      >
+        {/* Thumb — override global transition để đồng bộ */}
         <div
-          className={`absolute top-[2px] w-[13px] h-[13px] rounded-full transition-all duration-300 ease-out flex items-center justify-center text-[7px]
-            ${isDark
-              ? "left-[2px] bg-brand-muted"
-              : "left-[17px] bg-brand-accent"
-            }`}
+          className="absolute top-[2px] w-[13px] h-[13px] rounded-full flex items-center justify-center text-[7px] leading-none"
+          style={{
+            transition: "left 0.3s ease, background-color 0.3s ease",
+            left: isDark ? "2px" : "17px",
+            backgroundColor: isDark ? "var(--brand-muted)" : "var(--brand-accent)",
+          }}
         >
           {isDark ? "🌙" : "☀️"}
         </div>
