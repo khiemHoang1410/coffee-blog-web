@@ -78,7 +78,7 @@ const bodyComponents = {
       <p className="text-brand-text/75 leading-relaxed mb-5">{children}</p>
     ),
     h2: ({ children }: { children?: React.ReactNode }) => (
-      <h2 className="font-display text-2xl font-bold text-brand-text mt-10 mb-4 border-b border-[#2A1F10] pb-2">
+      <h2 className="font-display text-2xl font-bold text-brand-text mt-10 mb-4 border-b border-brand-border pb-2">
         {children}
       </h2>
     ),
@@ -101,7 +101,7 @@ const bodyComponents = {
       <em className="italic text-brand-accent">{children}</em>
     ),
     code: ({ children }: { children?: React.ReactNode }) => (
-      <code className="bg-[#1A1A1A] text-brand-accent px-1.5 py-0.5 rounded text-sm font-mono">
+      <code className="bg-brand-surface text-brand-accent px-1.5 py-0.5 rounded text-sm font-mono">
         {children}
       </code>
     ),
@@ -221,7 +221,7 @@ export default async function BlogPostPage({ params }: PageProps) {
         </div>
 
         <div className="max-w-3xl mx-auto px-4 -mt-20 relative z-10">
-          <div className="bg-brand-surface border border-[#2A1F10] rounded-2xl p-8 mb-12">
+          <div className="bg-brand-surface border border-brand-border rounded-2xl p-8 mb-12">
             {/* Tags */}
             {post.tags && post.tags.length > 0 && (
               <div className="flex flex-wrap gap-2 mb-4">
@@ -242,7 +242,7 @@ export default async function BlogPostPage({ params }: PageProps) {
             </h1>
 
             {/* Meta */}
-            <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-brand-muted border-b border-[#2A1F10] pb-6 mb-8">
+            <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-brand-muted border-b border-brand-border pb-6 mb-8">
               {post.author && (
                 <span className="font-medium text-brand-text/70">{post.author}</span>
               )}

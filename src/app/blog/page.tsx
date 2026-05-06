@@ -28,19 +28,19 @@ export default async function BlogPage() {
   return (
     <main className="min-h-screen bg-brand-bg text-brand-text">
       {/* Hero */}
-      <section className="py-24 px-4 text-center border-b border-[#1A1A1A]">
+      <section className="py-16 sm:py-24 px-5 sm:px-4 text-center border-b border-brand-border">
         <FadeUp>
           <p className="text-brand-accent text-xs font-semibold uppercase tracking-[0.3em] mb-4">
             Journal
           </p>
         </FadeUp>
         <FadeUp delay={100}>
-          <h1 className="font-display text-5xl md:text-6xl font-light text-brand-text">
+          <h1 className="font-display text-4xl sm:text-5xl md:text-6xl font-light text-brand-text">
             Café Stories
           </h1>
         </FadeUp>
         <FadeUp delay={200}>
-          <p className="text-brand-text/50 text-sm mt-5 max-w-md mx-auto leading-relaxed">
+          <p className="text-brand-muted text-sm mt-5 max-w-md mx-auto leading-relaxed">
             Những câu chuyện về cà phê, con người và những khoảnh khắc đáng
             trân trọng trong từng tách.
           </p>
@@ -48,7 +48,7 @@ export default async function BlogPage() {
       </section>
 
       {/* Post grid */}
-      <section className="max-w-4xl mx-auto px-4 py-16">
+      <section className="max-w-4xl mx-auto px-5 sm:px-4 py-12 sm:py-16">
         {posts.length === 0 ? (
           <p className="text-center text-brand-muted py-20">
             Chưa có bài viết nào. Hãy quay lại sớm nhé!
@@ -66,7 +66,7 @@ export default async function BlogPage() {
                     {/* Thumbnail */}
                     <Link
                       href={`/blog/${post.slug}`}
-                      className="block relative aspect-[16/10] overflow-hidden rounded mb-4 bg-[#1A1A1A]"
+                      className="block relative aspect-[16/10] overflow-hidden rounded-2xl mb-4 bg-brand-surface"
                     >
                       {thumbUrl && (
                         <Image
@@ -104,7 +104,7 @@ export default async function BlogPage() {
                     </p>
 
                     {/* Meta */}
-                    <div className="flex items-center gap-3 text-xs text-brand-muted/60 border-t border-[#1A1A1A] pt-4">
+                    <div className="flex items-center gap-3 text-xs text-brand-muted/60 border-t border-brand-border pt-4">
                       {post.author && <span>{post.author}</span>}
                       {post.author && <span>·</span>}
                       <time dateTime={post.publishedAt}>

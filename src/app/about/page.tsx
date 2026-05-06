@@ -104,14 +104,14 @@ export default async function AboutPage() {
           <div className="absolute inset-0 bg-brand-surface" />
         )}
 
-        <div className="relative max-w-3xl mx-auto px-4 py-24 text-center">
+        <div className="relative max-w-3xl mx-auto px-5 sm:px-4 py-20 sm:py-24 text-center">
           <FadeUp>
             <p className="text-brand-accent text-xs font-semibold uppercase tracking-[0.3em] mb-6">
               Câu chuyện của chúng tôi
             </p>
           </FadeUp>
           <FadeUp delay={100}>
-            <h1 className="font-display text-5xl md:text-7xl font-light text-brand-text leading-tight">
+            <h1 className="font-display text-4xl sm:text-5xl md:text-7xl font-light text-brand-text leading-tight">
               {settings?.tagline ?? (
                 <>
                   Không chỉ là
@@ -133,7 +133,7 @@ export default async function AboutPage() {
 
       {/* Story content — rich text */}
       {settings?.storyContent && settings.storyContent.length > 0 && (
-        <section className="max-w-2xl mx-auto px-4 py-16">
+        <section className="max-w-2xl mx-auto px-5 sm:px-4 py-12 sm:py-16">
           <PortableText
             value={settings.storyContent as PortableTextBlock[]}
             components={storyComponents}
@@ -143,8 +143,8 @@ export default async function AboutPage() {
 
       {/* Info bar */}
       {(settings?.address || settings?.phone || settings?.openingHours) && (
-        <section className="border-t border-[#1A1A1A] py-16 px-4">
-          <div className="max-w-3xl mx-auto grid sm:grid-cols-3 gap-10 text-center">
+        <section className="border-t border-brand-border py-12 sm:py-16 px-5 sm:px-4">
+          <div className="max-w-3xl mx-auto grid sm:grid-cols-3 gap-8 sm:gap-10 text-center">
             {settings.address && (
               <FadeUp>
                 <div>

@@ -1,13 +1,23 @@
 @import "tailwindcss";
 
 /* ─── Theme tokens — Tailwind v4 CSS-based config ────────────────────────── */
+/* ─── Theme tokens — Tailwind v4 CSS-based config ────────────────────────── */
 @theme {
-  /* Fonts (CSS variables được declare ở layout.tsx qua next/font) */
+  /* Fonts */
   --font-sans: var(--font-dm-sans), sans-serif;
   --font-display: var(--font-cormorant), serif;
 
-  /* Coffee palette — giữ lại cho legacy components (contact, blog [slug]) */
-  --color-coffee-50: #fdf8f0;
+  /* ── Espresso & Ivory — dùng CSS var để hỗ trợ dark/light toggle ── */
+  --color-brand-bg:      var(--brand-bg);
+  --color-brand-surface: var(--brand-surface);
+  --color-brand-border:  var(--brand-border);
+  --color-brand-text:    var(--brand-text);
+  --color-brand-muted:   var(--brand-muted);
+  --color-brand-accent:  var(--brand-accent);
+  --color-brand-accent2: var(--brand-accent2);
+
+  /* Legacy coffee palette */
+  --color-coffee-50:  #fdf8f0;
   --color-coffee-100: #faefd9;
   --color-coffee-200: #f3d9ab;
   --color-coffee-300: #eabc73;
@@ -18,13 +28,6 @@
   --color-coffee-800: #7a3f17;
   --color-coffee-900: #643516;
   --color-coffee-950: #381a09;
-
-  /* Brand palette mới — dark showroom */
-  --color-brand-bg: #0d0d0d;
-  --color-brand-surface: #1a1209;
-  --color-brand-text: #f5f0e8;
-  --color-brand-accent: #c9a84c;
-  --color-brand-muted: #6b5b45;
 }
 
 @layer base {
@@ -34,6 +37,49 @@
 
   body {
     @apply text-brand-text antialiased;
+    transition: background-color 0.5s ease, color 0.5s ease;
+  }
+
+  /* Smooth transition cho tất cả elements khi đổi theme */
+  *,
+  *::before,
+  *::after {
+    transition-property: background-color, border-color, color, fill, stroke;
+    transition-duration: 0.5s;
+    transition-timing-function: ease;
+  }
+
+  /* Ngoại lệ — animation riêng không bị override */
+  .marquee-track,
+  .animate-fade-up,
+  .animate-fade-in,
+  .scroll-animate,
+  .stagger-item,
+  .reveal-unit {
+    transition-property: opacity, transform, filter;
+  }
+
+  /* ── Dark mode (default) ── */
+  :root,
+  .dark {
+    --brand-bg:      #12100d;
+    --brand-surface: #1e1a14;
+    --brand-border:  #2e2618;
+    --brand-text:    #f7f0e6;
+    --brand-muted:   #a89880;
+    --brand-accent:  #c8922a;
+    --brand-accent2: #e8b86d;
+  }
+
+  /* ── Light mode ── */
+  .light {
+    --brand-bg:      #fdf6ec;
+    --brand-surface: #fff8f0;
+    --brand-border:  #e8d9c4;
+    --brand-text:    #1e1208;
+    --brand-muted:   #7a5c3a;
+    --brand-accent:  #b07820;
+    --brand-accent2: #c8922a;
   }
 }
 
@@ -69,15 +115,229 @@
 .delay-400 { animation-delay: 400ms; }
 .delay-500 { animation-delay: 500ms; }
 
-/* Scroll-triggered: ẩn cho đến khi JS thêm class .in-view */
-.scroll-animate {
-  opacity: 0;
-  transform: translateY(28px);
-  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
-              transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+/* ─── Scroll-triggered animations ────────────────────────────────────────── */
+
+/* Easing chung */
+:root {
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
 }
 
+/* --- Fade Up (default) --- */
+.scroll-animate {
+  opacity: 0;
+  transform: translateY(40px);
+  transition:
+    opacity 0.8s var(--ease-out-expo),
+    transform 0.8s var(--ease-out-expo);
+}
 .scroll-animate.in-view {
   opacity: 1;
   transform: translateY(0);
+}
+
+/* --- Fade Down --- */
+.scroll-animate-down {
+  opacity: 0;
+  transform: translateY(-40px);
+  transition:
+    opacity 0.8s var(--ease-out-expo),
+    transform 0.8s var(--ease-out-expo);
+}
+.scroll-animate-down.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* --- Fade Left (slide từ phải vào) --- */
+.scroll-animate-left {
+  opacity: 0;
+  transform: translateX(50px);
+  transition:
+    opacity 0.8s var(--ease-out-expo),
+    transform 0.8s var(--ease-out-expo);
+}
+.scroll-animate-left.in-view {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* --- Fade Right (slide từ trái vào) --- */
+.scroll-animate-right {
+  opacity: 0;
+  transform: translateX(-50px);
+  transition:
+    opacity 0.8s var(--ease-out-expo),
+    transform 0.8s var(--ease-out-expo);
+}
+.scroll-animate-right.in-view {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* --- Scale up --- */
+.scroll-animate-scale {
+  opacity: 0;
+  transform: scale(0.88);
+  transition:
+    opacity 0.9s var(--ease-out-expo),
+    transform 0.9s var(--ease-out-expo);
+}
+.scroll-animate-scale.in-view {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* --- Blur in --- */
+.scroll-animate-blur {
+  opacity: 0;
+  filter: blur(12px);
+  transform: translateY(20px);
+  transition:
+    opacity 1s var(--ease-out-expo),
+    filter 1s var(--ease-out-expo),
+    transform 1s var(--ease-out-expo);
+}
+.scroll-animate-blur.in-view {
+  opacity: 1;
+  filter: blur(0);
+  transform: translateY(0);
+}
+
+/* --- Stagger item (dùng với StaggerChildren) --- */
+.stagger-item {
+  opacity: 0;
+  transform: translateY(32px);
+  transition:
+    opacity 0.7s var(--ease-out-expo),
+    transform 0.7s var(--ease-out-expo);
+}
+.stagger-item.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ─── Text Reveal (dùng với TextReveal component) ─────────────────────────── */
+.reveal-unit {
+  transform: translateY(110%);
+  opacity: 0;
+  transition:
+    transform 0.75s var(--ease-out-expo),
+    opacity 0.75s var(--ease-out-expo);
+}
+.reveal-unit.revealed {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* ─── Hover effects ───────────────────────────────────────────────────────── */
+
+/* Image zoom on hover — dùng cho card ảnh */
+.img-zoom img,
+.img-zoom > div > img {
+  transition: transform 0.7s var(--ease-out-quart);
+}
+.img-zoom:hover img,
+.img-zoom:hover > div > img {
+  transform: scale(1.06);
+}
+
+/* Underline slide — dùng cho link */
+.link-underline {
+  position: relative;
+}
+.link-underline::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: currentColor;
+  transition: width 0.4s var(--ease-out-expo);
+}
+.link-underline:hover::after {
+  width: 100%;
+}
+
+/* ─── Page transition overlay ─────────────────────────────────────────────── */
+@keyframes page-in {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+main {
+  animation: page-in 0.6s var(--ease-out-expo) both;
+}
+
+/* ─── Shimmer loading skeleton ────────────────────────────────────────────── */
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    #1a1a1a 25%,
+    #2a2a2a 50%,
+    #1a1a1a 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+/* ─── Floating animation (dùng cho decorative elements) ──────────────────── */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-10px); }
+}
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+/* ─── Grain texture overlay ───────────────────────────────────────────────── */
+.grain::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.4;
+}
+
+/* ─── Marquee / ticker ────────────────────────────────────────────────────── */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 20s linear infinite;
+}
+
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+
+/* ─── Hero dark lock — luôn tối bất kể theme ─────────────────────────────── */
+/* Dùng cho section hero trang chủ */
+.hero-dark {
+  --brand-bg:      #12100d !important;
+  --brand-surface: #1e1a14 !important;
+  --brand-border:  #2e2618 !important;
+  --brand-text:    #f7f0e6 !important;
+  --brand-muted:   #a89880 !important;
+  --brand-accent:  #c8922a !important;
+  --brand-accent2: #e8b86d !important;
+  background-color: #12100d !important;
+  color: #f7f0e6 !important;
+}
+
+.hero-dark * {
+  transition-property: opacity, transform, filter !important;
 }

@@ -30,7 +30,7 @@ function MenuCard({ item }: { item: SanityMenuItem }) {
   return (
     <article className="group flex flex-col">
       {/* Ảnh */}
-      <div className="relative aspect-[4/3] overflow-hidden rounded mb-4 bg-[#1A1A1A]">
+      <div className="relative aspect-[4/3] overflow-hidden rounded-xl mb-4 bg-brand-surface">
         {imageUrl ? (
           <Image
             src={imageUrl}
@@ -40,7 +40,7 @@ function MenuCard({ item }: { item: SanityMenuItem }) {
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
           />
         ) : (
-          <div className="w-full h-full bg-[#1A1A1A]" />
+          <div className="w-full h-full bg-brand-surface" />
         )}
 
         {item.featured && (
@@ -83,21 +83,21 @@ export default async function MenuPage() {
   return (
     <main className="min-h-screen bg-brand-bg text-brand-text">
       {/* Hero */}
-      <section className="py-24 px-4 text-center border-b border-[#1A1A1A]">
+      <section className="py-16 sm:py-24 px-5 sm:px-4 text-center border-b border-brand-border">
         <FadeUp>
           <p className="text-brand-accent text-xs font-semibold uppercase tracking-[0.3em] mb-4">
             Thực đơn
           </p>
         </FadeUp>
         <FadeUp delay={100}>
-          <h1 className="font-display text-5xl md:text-6xl font-light text-brand-text">
+          <h1 className="font-display text-4xl sm:text-5xl md:text-6xl font-light text-brand-text">
             Được pha chế
             <br />
             <span className="italic text-brand-accent">với tâm huyết</span>
           </h1>
         </FadeUp>
         <FadeUp delay={200}>
-          <p className="text-brand-muted text-sm mt-6 max-w-md mx-auto leading-relaxed">
+          <p className="text-brand-muted text-sm mt-5 sm:mt-6 max-w-md mx-auto leading-relaxed">
             Mỗi loại đồ uống là một trải nghiệm — không chỉ là hương vị, mà còn
             là khoảnh khắc bạn dành cho bản thân.
           </p>
@@ -105,7 +105,7 @@ export default async function MenuPage() {
       </section>
 
       {/* Menu theo category */}
-      <div className="max-w-5xl mx-auto px-4 py-16 space-y-20">
+      <div className="max-w-5xl mx-auto px-5 sm:px-4 py-12 sm:py-16 space-y-16 sm:space-y-20">
         {grouped.length === 0 && (
           <p className="text-center text-brand-muted py-20">
             Menu đang được cập nhật. Vui lòng quay lại sớm!
@@ -120,7 +120,7 @@ export default async function MenuPage() {
               <h2 className="font-display text-2xl font-semibold text-brand-text tracking-wide">
                 {cat.label}
               </h2>
-              <div className="flex-1 h-px bg-[#1A1A1A]" />
+              <div className="flex-1 h-px bg-brand-border" />
             </div>
 
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -135,7 +135,7 @@ export default async function MenuPage() {
       </div>
 
       {/* Footer note */}
-      <div className="border-t border-[#1A1A1A] py-8 px-4 text-center">
+      <div className="border-t border-brand-border py-8 px-4 text-center">
         <p className="text-brand-muted text-xs">
           Giá có thể thay đổi theo mùa. Vui lòng liên hệ để biết thêm thông tin.
         </p>

@@ -93,7 +93,7 @@ function escapeHtml(str: string): string {
 
 export async function POST(
   req: NextRequest
-): Promise<NextResponse<ApiResponse>> {
+): Promise<NextResponse<ApiResponse<ValidationErrors | undefined>>> {
   try {
     const body: unknown = await req.json();
     const { valid, errors, parsed } = validateContactForm(body);

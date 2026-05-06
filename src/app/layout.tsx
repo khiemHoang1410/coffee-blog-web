@@ -1,18 +1,25 @@
 import type { Metadata } from "next";
-import { Cormorant_Garamond, DM_Sans } from "next/font/google";
+import { Cormorant_Garamond, Be_Vietnam_Pro } from "next/font/google";
 import Link from "next/link";
+import { ThemeProvider } from "@/components/ThemeProvider";
+import ThemeToggle from "@/components/ThemeToggle";
+import MobileNav from "@/components/MobileNav";
+import ScrollToTop from "@/components/ScrollToTop";
+import AdminEasterEgg from "@/components/AdminEasterEgg";
+import { getSiteSettings } from "@/sanity/lib/queries";
 import "./globals.css";
 
 const cormorant = Cormorant_Garamond({
   variable: "--font-cormorant",
-  subsets: ["latin"],
+  subsets: ["latin", "vietnamese"],
   weight: ["300", "400", "600", "700"],
   display: "swap",
 });
 
-const dmSans = DM_Sans({
+const beVietnamPro = Be_Vietnam_Pro({
   variable: "--font-dm-sans",
-  subsets: ["latin"],
+  subsets: ["latin", "vietnamese"],
+  weight: ["300", "400", "500", "600"],
   display: "swap",
 });
 
@@ -67,87 +74,134 @@ const NAV_LINKS = [
   { href: "/contact", label: "Liên hệ" },
 ] as const;
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
+  const settings = await getSiteSettings();
   return (
     <html
       lang="vi"
-      className={`${cormorant.variable} ${dmSans.variable}`}
+      className={`${cormorant.variable} ${beVietnamPro.variable}`}
+      suppressHydrationWarning
     >
       <body className="min-h-screen flex flex-col bg-brand-bg font-sans antialiased">
-        {/* Header */}
-        <header className="bg-brand-bg border-b border-[#1A1A1A] sticky top-0 z-50">
-          <div className="max-w-5xl mx-auto px-4 h-16 flex items-center justify-between">
-            <Link
-              href="/"
-              className="font-display text-xl font-semibold text-brand-text hover:text-brand-accent transition-colors tracking-wide"
-            >
-              Café Stories
-            </Link>
-
-            <nav aria-label="Main navigation">
-              <ul className="flex items-center gap-6">
-                {NAV_LINKS.map(({ href, label }) => (
-                  <li key={href}>
-                    <Link
-                      href={href}
-                      className="text-sm font-medium text-brand-text/70 hover:text-brand-accent transition-colors"
-                    >
-                      {label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </nav>
-          </div>
-        </header>
-
-        <div className="flex-1">{children}</div>
-
-        {/* Footer */}
-        <footer className="bg-[#080808] text-brand-text/50 py-12 px-4 mt-auto border-t border-[#1A1A1A]">
-          <div className="max-w-5xl mx-auto grid md:grid-cols-3 gap-8">
-            <div>
-              <p className="font-display text-brand-text text-lg font-semibold mb-2">
+        <ThemeProvider>
+          {/* Header */}
+          <header className="bg-brand-bg/80 backdrop-blur-xl border-b border-brand-border sticky top-0 z-50">
+            <div className="max-w-6xl mx-auto px-5 sm:px-6 h-16 flex items-center justify-between">
+              <Link
+                href="/"
+                className="font-display text-xl font-semibold text-brand-text hover:text-brand-accent transition-colors tracking-wide"
+              >
                 Café Stories
-              </p>
-              <p className="text-sm leading-relaxed">
-                Specialty coffee — Hạt cà phê chất lượng cao, pha chế tỉ mỉ.
-              </p>
+              </Link>
+
+              <div className="flex items-center gap-6">
+                <nav aria-label="Main navigation" className="hidden md:block">
+                  <ul className="flex items-center gap-8">
+                    {NAV_LINKS.map(({ href, label }) => (
+                      <li key={href}>
+                        <Link
+                          href={href}
+                          className="text-sm font-medium text-brand-muted hover:text-brand-text transition-colors relative group"
+                        >
+                          {label}
+                          <span className="absolute -bottom-0.5 left-0 w-0 group-hover:w-full h-px bg-brand-accent transition-all duration-300" />
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </nav>
+
+                {/* Theme toggle */}
+                <ThemeToggle />
+
+                {/* Mobile hamburger */}
+                <MobileNav />
+              </div>
+            </div>
+          </header>
+
+          <div className="flex-1">{children}</div>
+
+          <ScrollToTop />
+
+          {/* Footer */}
+          <footer className="bg-brand-surface border-t border-brand-border text-brand-muted py-12 sm:py-16 px-5 sm:px-6 mt-auto">
+            <div className="max-w-6xl mx-auto grid sm:grid-cols-2 md:grid-cols-4 gap-8 sm:gap-10">
+              {/* Brand */}
+              <div className="sm:col-span-2">
+                <p className="font-display text-brand-text text-2xl font-semibold mb-3">
+                  Café Stories
+                </p>
+                <p className="text-sm leading-relaxed max-w-xs mb-6">
+                  Specialty coffee — Hạt cà phê chất lượng cao, rang tươi và pha chế tỉ mỉ mỗi ngày.
+                </p>
+                <div className="flex items-center gap-3">
+                  <div className="w-6 h-px bg-brand-accent" />
+                  <p className="text-brand-accent text-xs uppercase tracking-widest font-semibold">
+                    Farm to Cup
+                  </p>
+                </div>
+              </div>
+
+              {/* Links */}
+              <div>
+                <p className="text-brand-text font-semibold text-sm mb-4 uppercase tracking-wider">
+                  Liên kết
+                </p>
+                <ul className="space-y-2.5 text-sm">
+                  {NAV_LINKS.map(({ href, label }) => (
+                    <li key={href}>
+                      <Link
+                        href={href}
+                        className="hover:text-brand-accent transition-colors"
+                      >
+                        {label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* Hours — từ Sanity, fallback hardcode */}
+              <div>
+                <p className="text-brand-text font-semibold text-sm mb-4 uppercase tracking-wider">
+                  Giờ mở cửa
+                </p>
+                {settings?.openingHours ? (
+                  <p className="text-sm leading-relaxed whitespace-pre-line">
+                    {settings.openingHours}
+                  </p>
+                ) : (
+                  <div className="space-y-2 text-sm">
+                    <p>Thứ 2 – Thứ 6</p>
+                    <p className="text-brand-text">7:00 – 22:00</p>
+                    <p className="mt-3">Thứ 7 – Chủ nhật</p>
+                    <p className="text-brand-text">7:00 – 23:00</p>
+                  </div>
+                )}
+                {settings?.address && (
+                  <p className="text-sm mt-4 text-brand-muted/70 leading-relaxed">
+                    {settings.address}
+                  </p>
+                )}
+                {settings?.phone && (
+                  <a
+                    href={`tel:${settings.phone.replace(/\s/g, "")}`}
+                    className="text-sm mt-1 text-brand-muted/70 hover:text-brand-accent transition-colors block"
+                  >
+                    {settings.phone}
+                  </a>
+                )}
+              </div>
             </div>
 
-            <div>
-              <p className="text-brand-text font-medium text-sm mb-3">
-                Liên kết
-              </p>
-              <ul className="space-y-2 text-sm">
-                {NAV_LINKS.map(({ href, label }) => (
-                  <li key={href}>
-                    <Link
-                      href={href}
-                      className="hover:text-brand-accent transition-colors"
-                    >
-                      {label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
+            <div className="max-w-6xl mx-auto mt-10 sm:mt-12 pt-6 border-t border-brand-border text-xs text-center text-brand-muted/40">
+              <AdminEasterEgg />
             </div>
-
-            <div>
-              <p className="text-brand-text font-medium text-sm mb-3">
-                Giờ mở cửa
-              </p>
-              <p className="text-sm">Thứ 2 – Thứ 6: 7:00 – 22:00</p>
-              <p className="text-sm">Thứ 7 – Chủ nhật: 7:00 – 23:00</p>
-            </div>
-          </div>
-
-          <div className="max-w-5xl mx-auto mt-10 pt-6 border-t border-[#1A1A1A] text-xs text-center text-brand-text/30">
-            © {new Date().getFullYear()} Café Stories. All rights reserved.
-          </div>
-        </footer>
+          </footer>
+        </ThemeProvider>
       </body>
     </html>
   );
