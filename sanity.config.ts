@@ -6,7 +6,7 @@ export default defineConfig({
   // Studio sẽ available tại /studio
   basePath: "/studio",
 
-  projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID ?? "ut2e7a43",
+  projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID ?? "",
   dataset: process.env.NEXT_PUBLIC_SANITY_DATASET ?? "production",
 
   plugins: [structureTool()],
