@@ -40,11 +40,11 @@ export default function MobileNav() {
 
   // Màu hardcode theo theme — tránh bị override bởi hero-dark scope
   const isDark = !mounted || resolvedTheme === "dark";
-  const drawerBg    = isDark ? "#1e1a14" : "#fff8f0";
-  const drawerBorder = isDark ? "#2e2618" : "#e8d9c4";
-  const textColor   = isDark ? "#f7f0e6" : "#1e1208";
-  const mutedColor  = isDark ? "#a89880" : "#7a5c3a";
-  const accentColor = "#c8922a";
+  const drawerBg    = isDark ? "#111a11" : "#ffffff";
+  const drawerBorder = isDark ? "#1e3020" : "#c8e6c0";
+  const textColor   = isDark ? "#e8f5e2" : "#1a2e1a";
+  const mutedColor  = isDark ? "#7aaa72" : "#4a7a42";
+  const accentColor = isDark ? "#a8e63d" : "#5cb85c";
 
   return (
     <>

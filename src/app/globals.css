@@ -16,18 +16,18 @@
   --color-brand-accent:  var(--brand-accent);
   --color-brand-accent2: var(--brand-accent2);
 
-  /* Legacy coffee palette */
-  --color-coffee-50:  #fdf8f0;
-  --color-coffee-100: #faefd9;
-  --color-coffee-200: #f3d9ab;
-  --color-coffee-300: #eabc73;
-  --color-coffee-400: #e09a3d;
-  --color-coffee-500: #d4801e;
-  --color-coffee-600: #b96515;
-  --color-coffee-700: #974e14;
-  --color-coffee-800: #7a3f17;
-  --color-coffee-900: #643516;
-  --color-coffee-950: #381a09;
+  /* Matcha Forest palette */
+  --color-lime-50:  #f7fef0;
+  --color-lime-100: #e8fcd4;
+  --color-lime-200: #cef5a0;
+  --color-lime-300: #a8e63d;
+  --color-lime-400: #8fd42a;
+  --color-lime-500: #72b81e;
+  --color-lime-600: #5a9416;
+  --color-lime-700: #447010;
+  --color-lime-800: #2e4e0a;
+  --color-lime-900: #1a2e05;
+  --color-lime-950: #0d1a02;
 }
 
 @layer base {
@@ -59,27 +59,27 @@
     transition-property: opacity, transform, filter;
   }
 
-  /* ── Dark mode (default) ── */
+  /* ── Dark mode (default) — Matcha Forest ── */
   :root,
   .dark {
-    --brand-bg:      #12100d;
-    --brand-surface: #1e1a14;
-    --brand-border:  #2e2618;
-    --brand-text:    #f7f0e6;
-    --brand-muted:   #a89880;
-    --brand-accent:  #c8922a;
-    --brand-accent2: #e8b86d;
+    --brand-bg:      #0a0f0a;
+    --brand-surface: #111a11;
+    --brand-border:  #1e3020;
+    --brand-text:    #e8f5e2;
+    --brand-muted:   #7aaa72;
+    --brand-accent:  #a8e63d;
+    --brand-accent2: #c5f26a;
   }
 
   /* ── Light mode ── */
   .light {
-    --brand-bg:      #fdf6ec;
-    --brand-surface: #fff8f0;
-    --brand-border:  #e8d9c4;
-    --brand-text:    #1e1208;
-    --brand-muted:   #7a5c3a;
-    --brand-accent:  #b07820;
-    --brand-accent2: #c8922a;
+    --brand-bg:      #f4faf0;
+    --brand-surface: #ffffff;
+    --brand-border:  #c8e6c0;
+    --brand-text:    #1a2e1a;
+    --brand-muted:   #4a7a42;
+    --brand-accent:  #5cb85c;
+    --brand-accent2: #7ed957;
   }
 }
 
@@ -279,9 +279,9 @@ main {
 .skeleton {
   background: linear-gradient(
     90deg,
-    #1a1a1a 25%,
-    #2a2a2a 50%,
-    #1a1a1a 75%
+    #0f1a0f 25%,
+    #1a2e1a 50%,
+    #0f1a0f 75%
   );
   background-size: 200% 100%;
   animation: shimmer 1.5s infinite;
@@ -327,15 +327,15 @@ main {
 /* ─── Hero dark lock — luôn tối bất kể theme ─────────────────────────────── */
 /* Dùng cho section hero trang chủ */
 .hero-dark {
-  --brand-bg:      #12100d !important;
-  --brand-surface: #1e1a14 !important;
-  --brand-border:  #2e2618 !important;
-  --brand-text:    #f7f0e6 !important;
-  --brand-muted:   #a89880 !important;
-  --brand-accent:  #c8922a !important;
-  --brand-accent2: #e8b86d !important;
-  background-color: #12100d !important;
-  color: #f7f0e6 !important;
+  --brand-bg:      #0a0f0a !important;
+  --brand-surface: #111a11 !important;
+  --brand-border:  #1e3020 !important;
+  --brand-text:    #e8f5e2 !important;
+  --brand-muted:   #7aaa72 !important;
+  --brand-accent:  #a8e63d !important;
+  --brand-accent2: #c5f26a !important;
+  background-color: #0a0f0a !important;
+  color: #e8f5e2 !important;
 }
 
 .hero-dark * {
