@@ -1,27 +1,25 @@
 "use client";
 
-import { useRef, MouseEvent } from "react";
+import { useRef, MouseEvent, ElementType, ComponentPropsWithRef } from "react";
 
-interface MagneticButtonProps {
+type MagneticButtonProps<T extends ElementType = "div"> = {
   children: React.ReactNode;
   className?: string;
   strength?: number; // 0–1, default 0.35
-  as?: "button" | "a" | "div";
-  href?: string;
-  onClick?: () => void;
-}
+  as?: T;
+} & Omit<ComponentPropsWithRef<T>, "children" | "className" | "as">;
 
 /**
  * Element bị hút nhẹ theo con trỏ chuột — hiệu ứng magnetic.
  */
-export default function MagneticButton({
+export default function MagneticButton<T extends ElementType = "div">({
   children,
   className = "",
   strength = 0.35,
-  as: Tag = "div",
-  href,
-  onClick,
-}: MagneticButtonProps) {
+  as,
+  ...rest
+}: MagneticButtonProps<T>) {
+  const Tag = (as ?? "div") as ElementType;
   const ref = useRef<HTMLElement>(null);
 
   const handleMouseMove = (e: MouseEvent) => {
@@ -41,18 +39,15 @@ export default function MagneticButton({
     el.style.transform = "translate(0px, 0px)";
   };
 
-  const props = {
-    ref,
-    className: `magnetic-btn ${className}`,
-    onMouseMove: handleMouseMove,
-    onMouseLeave: handleMouseLeave,
-    onClick,
-    ...(href ? { href } : {}),
-  };
-
   return (
-    // @ts-expect-error — dynamic tag
-    <Tag {...props} style={{ transition: "transform 0.4s cubic-bezier(0.16,1,0.3,1)" }}>
+    <Tag
+      ref={ref}
+      className={`magnetic-btn ${className}`}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      style={{ transition: "transform 0.4s cubic-bezier(0.16,1,0.3,1)" }}
+      {...rest}
+    >
       {children}
     </Tag>
   );

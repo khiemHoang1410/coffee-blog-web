@@ -97,6 +97,10 @@ export default function ScrambleText({
   };
 
   useEffect(() => {
+    // Reset để cho phép scramble lại khi text thay đổi
+    hasRun.current = false;
+    setDisplayed(text);
+
     if (trigger === "mount") {
       timeoutRef.current = setTimeout(runScramble, delay);
     } else {
@@ -122,7 +126,7 @@ export default function ScrambleText({
       cancelAnimationFrame(rafRef.current);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [text]);
 
   return (
     <span

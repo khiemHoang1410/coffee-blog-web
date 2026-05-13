@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useRef } from "react";
 import Link from "next/link";
 
 /**
@@ -10,7 +10,7 @@ import Link from "next/link";
 export default function AdminEasterEgg() {
   const [clicks, setClicks] = useState(0);
   const [showLink, setShowLink] = useState(false);
-  const [timer, setTimer] = useState<ReturnType<typeof setTimeout> | null>(null);
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const handleClick = useCallback(() => {
     if (showLink) return;
@@ -19,22 +19,22 @@ export default function AdminEasterEgg() {
       const next = prev + 1;
 
       // Reset timer mỗi lần click
-      if (timer) clearTimeout(timer);
-      const newTimer = setTimeout(() => {
+      if (timerRef.current) clearTimeout(timerRef.current);
+      timerRef.current = setTimeout(() => {
         setClicks(0);
+        timerRef.current = null;
       }, 3000);
-      setTimer(newTimer);
 
       if (next >= 5) {
+        clearTimeout(timerRef.current!);
+        timerRef.current = null;
         setShowLink(true);
-        clearTimeout(newTimer);
-        setTimer(null);
         return 0;
       }
 
       return next;
     });
-  }, [showLink, timer]);
+  }, [showLink]);
 
   return (
     <span className="inline-flex items-center gap-3">
