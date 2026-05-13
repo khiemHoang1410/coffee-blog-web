@@ -41,9 +41,29 @@ const postBySlugQuery = groq`
   }
 `;
 
+/** N bài viết mới nhất — dùng cho homepage */
+const latestPostsQuery = groq`
+  *[_type == "post" && defined(slug.current)] | order(publishedAt desc) [0...$limit] {
+    _id,
+    title,
+    "slug": slug.current,
+    publishedAt,
+    description,
+    thumbnail { ..., "alt": coalesce(alt, "") }
+  }
+`;
+
 /** Slug list cho generateStaticParams */
 const allSlugsQuery = groq`
   *[_type == "post" && defined(slug.current)][].slug.current
+`;
+
+/** Dữ liệu tối thiểu cho sitemap */
+const allPostsForSitemapQuery = groq`
+  *[_type == "post" && defined(slug.current)] | order(publishedAt desc) {
+    "slug": slug.current,
+    publishedAt
+  }
 `;
 
 const allMenuItemsQuery = groq`
@@ -113,6 +133,14 @@ export async function getAllPosts(): Promise<SanityPost[]> {
   });
 }
 
+export async function getLatestPosts(limit: number = 3): Promise<SanityPost[]> {
+  return sanityFetch<SanityPost[]>({
+    query: latestPostsQuery,
+    params: { limit },
+    tags: ["post"],
+  });
+}
+
 export async function getPostBySlug(slug: string): Promise<SanityPost | null> {
   return sanityFetch<SanityPost | null>({
     query: postBySlugQuery,
@@ -124,6 +152,15 @@ export async function getPostBySlug(slug: string): Promise<SanityPost | null> {
 export async function getAllSlugs(): Promise<string[]> {
   return sanityFetch<string[]>({
     query: allSlugsQuery,
+    tags: ["post"],
+  });
+}
+
+export async function getAllPostsForSitemap(): Promise<
+  { slug: string; publishedAt: string | null }[]
+> {
+  return sanityFetch({
+    query: allPostsForSitemapQuery,
     tags: ["post"],
   });
 }

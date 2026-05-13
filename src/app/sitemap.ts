@@ -1,10 +1,10 @@
 import type { MetadataRoute } from "next";
-import { getAllPosts } from "@/sanity/lib/queries";
+import { getAllPostsForSitemap } from "@/sanity/lib/queries";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const posts = await getAllPosts();
+  const posts = await getAllPostsForSitemap();
 
   const staticRoutes: MetadataRoute.Sitemap = [
     {

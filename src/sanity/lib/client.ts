@@ -1,4 +1,5 @@
 import { createClient } from "next-sanity";
+import { cache } from "react";
 
 /**
  * Sanity client config — đọc từ env vars.
@@ -26,8 +27,9 @@ export const sanityClient = createClient({
 /**
  * Fetch wrapper với ISR revalidate 60s.
  * Mọi page server-side query Sanity nên dùng hàm này.
+ * Wrap bằng React cache() để dedup trong cùng một request.
  */
-export async function sanityFetch<T>({
+export const sanityFetch = cache(async function sanityFetch<T>({
   query,
   params = {},
   tags,
@@ -42,4 +44,4 @@ export async function sanityFetch<T>({
       tags,
     },
   });
-}
+});
