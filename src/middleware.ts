@@ -4,7 +4,7 @@ import { NextRequest, NextResponse } from "next/server";
  * Bảo vệ route /studio — chỉ cho phép truy cập trong môi trường dev
  * hoặc khi có env NEXT_PUBLIC_ENABLE_STUDIO=true
  */
-export function proxy(req: NextRequest) {
+export function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
 
   if (pathname.startsWith("/studio")) {
