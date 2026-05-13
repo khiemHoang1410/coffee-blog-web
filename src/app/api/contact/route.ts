@@ -6,6 +6,50 @@ import type { ContactForm, ApiResponse, ValidationErrors } from "@/types";
 // Khởi tạo Resend client — API key lấy từ env
 const resend = new Resend(process.env.RESEND_API_KEY);
 
+// ─── Rate Limiter ─────────────────────────────────────────────────────────────
+
+/**
+ * In-memory rate limiter theo IP.
+ * Giới hạn: tối đa RATE_LIMIT_MAX request trong RATE_LIMIT_WINDOW_MS.
+ *
+ * Lưu ý: Map này reset khi serverless function cold-start — đủ dùng cho
+ * traffic thông thường. Nếu cần persistent rate limit, dùng Upstash Redis.
+ */
+const RATE_LIMIT_WINDOW_MS = 60_000; // 1 phút
+const RATE_LIMIT_MAX = 3;            // tối đa 3 lần gửi / phút / IP
+
+interface RateLimitEntry {
+  count: number;
+  resetAt: number;
+}
+
+const rateLimitMap = new Map<string, RateLimitEntry>();
+
+function isRateLimited(ip: string): boolean {
+  const now = Date.now();
+  const entry = rateLimitMap.get(ip);
+
+  if (!entry || now > entry.resetAt) {
+    // Window mới — reset counter
+    rateLimitMap.set(ip, { count: 1, resetAt: now + RATE_LIMIT_WINDOW_MS });
+    return false;
+  }
+
+  if (entry.count >= RATE_LIMIT_MAX) return true;
+
+  entry.count++;
+  return false;
+}
+
+/** Lấy IP từ header, fallback về "unknown" */
+function getClientIp(req: NextRequest): string {
+  return (
+    req.headers.get("x-forwarded-for")?.split(",")[0].trim() ??
+    req.headers.get("x-real-ip") ??
+    "unknown"
+  );
+}
+
 // ─── Validation ───────────────────────────────────────────────────────────────
 
 function validateContactForm(data: unknown): {
@@ -95,6 +139,15 @@ export async function POST(
   req: NextRequest
 ): Promise<NextResponse<ApiResponse<ValidationErrors | undefined>>> {
   try {
+    // Kiểm tra rate limit trước khi xử lý bất cứ thứ gì
+    const ip = getClientIp(req);
+    if (isRateLimited(ip)) {
+      return NextResponse.json(
+        { success: false, message: "Bạn đã gửi quá nhiều lần. Vui lòng thử lại sau 1 phút." },
+        { status: 429 }
+      );
+    }
+
     const body: unknown = await req.json();
     const { valid, errors, parsed } = validateContactForm(body);
 
