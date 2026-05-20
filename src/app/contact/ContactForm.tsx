@@ -104,7 +104,7 @@ export default function ContactForm() {
               {serverMessage}
             </p>
             <button
-              onClick={() => { setFormState("idle"); setServerMessage(""); }}
+              onClick={() => { setFormState("idle"); setServerMessage(""); setFieldErrors({}); }}
               className="inline-flex items-center gap-2 border border-brand-border hover:border-brand-accent/50 text-brand-muted hover:text-brand-text font-medium px-6 py-2.5 rounded-full transition-all text-sm"
             >
               Gửi thêm tin nhắn

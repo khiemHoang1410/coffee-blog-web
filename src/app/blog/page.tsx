@@ -28,7 +28,7 @@ export default async function BlogPage() {
   return (
     <main className="min-h-screen bg-brand-bg text-brand-text">
       {/* Hero */}
-      <section className="py-16 sm:py-24 px-5 sm:px-4 text-center border-b border-brand-border">
+      <section className="py-16 sm:py-24 px-5 sm:px-6 text-center border-b border-brand-border">
         <FadeUp>
           <p className="text-brand-accent text-xs font-semibold uppercase tracking-[0.3em] mb-4">
             Journal
