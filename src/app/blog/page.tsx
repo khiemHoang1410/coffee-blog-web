@@ -27,6 +27,24 @@ interface PageProps {
   searchParams: Promise<{ page?: string }>;
 }
 
+/** Tạo danh sách số trang có ellipsis — tránh render quá nhiều nút */
+function getPaginationRange(current: number, total: number): (number | "...")[] {
+  if (total <= 7) return Array.from({ length: total }, (_, i) => i + 1);
+
+  const delta = 1; // số trang hiển thị mỗi bên của current
+  const range: (number | "...")[] = [1];
+
+  const left = Math.max(2, current - delta);
+  const right = Math.min(total - 1, current + delta);
+
+  if (left > 2) range.push("...");
+  for (let i = left; i <= right; i++) range.push(i);
+  if (right < total - 1) range.push("...");
+
+  range.push(total);
+  return range;
+}
+
 export default async function BlogPage({ searchParams }: PageProps) {
   const resolvedSearchParams = await searchParams;
   const currentPage = Math.max(1, Number(resolvedSearchParams.page ?? "1"));
@@ -134,10 +152,11 @@ export default async function BlogPage({ searchParams }: PageProps) {
 
             {/* Phân trang */}
             {totalPages > 1 && (
-              <nav className="flex justify-center items-center gap-2 mt-12 sm:mt-16">
+              <nav aria-label="Phân trang blog" className="flex justify-center items-center gap-2 mt-12 sm:mt-16">
                 {/* Nút Trước */}
                 <Link
                   href={currentPage > 2 ? `/blog?page=${currentPage - 1}` : "/blog"}
+                  tabIndex={currentPage === 1 ? -1 : undefined}
                   className={`px-4 py-2 text-xs font-semibold uppercase tracking-wider rounded-lg border border-brand-border transition-colors ${
                     currentPage === 1
                       ? "pointer-events-none opacity-40"
@@ -148,30 +167,37 @@ export default async function BlogPage({ searchParams }: PageProps) {
                   Trước
                 </Link>
 
-                {/* Số trang */}
+                {/* Số trang — có ellipsis */}
                 <div className="flex items-center gap-1.5">
-                  {Array.from({ length: totalPages }, (_, i) => {
-                    const pageNumber = i + 1;
-                    const isActive = pageNumber === currentPage;
-                    return (
+                  {getPaginationRange(currentPage, totalPages).map((item, i) =>
+                    item === "..." ? (
+                      <span
+                        key={`ellipsis-${i}`}
+                        className="w-9 h-9 flex items-center justify-center text-xs text-brand-muted"
+                      >
+                        …
+                      </span>
+                    ) : (
                       <Link
-                        key={pageNumber}
-                        href={pageNumber === 1 ? "/blog" : `/blog?page=${pageNumber}`}
+                        key={item}
+                        href={item === 1 ? "/blog" : `/blog?page=${item}`}
+                        aria-current={item === currentPage ? "page" : undefined}
                         className={`w-9 h-9 flex items-center justify-center text-xs font-semibold rounded-lg border transition-colors ${
-                          isActive
+                          item === currentPage
                             ? "bg-brand-accent text-brand-bg border-brand-accent"
                             : "border-brand-border hover:border-brand-accent hover:text-brand-accent text-brand-muted"
                         }`}
                       >
-                        {pageNumber}
+                        {item}
                       </Link>
-                    );
-                  })}
+                    )
+                  )}
                 </div>
 
                 {/* Nút Sau */}
                 <Link
                   href={`/blog?page=${currentPage + 1}`}
+                  tabIndex={currentPage === totalPages ? -1 : undefined}
                   className={`px-4 py-2 text-xs font-semibold uppercase tracking-wider rounded-lg border border-brand-border transition-colors ${
                     currentPage === totalPages
                       ? "pointer-events-none opacity-40"

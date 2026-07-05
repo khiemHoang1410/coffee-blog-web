@@ -40,13 +40,10 @@
     transition: background-color 0.5s ease, color 0.5s ease;
   }
 
-  /* Smooth transition cho các element chịu màu sắc khi đổi theme */
+  /* Smooth transition màu sắc khi đổi theme — chỉ apply lên element thực sự có bg/border/color */
   a, button,
   header, footer, nav,
-  section, article, aside, main,
-  div, span, p, h1, h2, h3, h4, h5, h6,
-  input, textarea, select,
-  svg, path {
+  input, textarea, select {
     transition-property: background-color, border-color, color, fill, stroke;
     transition-duration: 0.5s;
     transition-timing-function: ease;
