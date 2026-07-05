@@ -79,6 +79,11 @@ export default async function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   const settings = await getSiteSettings();
+  const hasSocial = !!(
+    settings?.facebookUrl ||
+    settings?.instagramUrl ||
+    settings?.tiktokUrl
+  );
   return (
     <html
       lang="vi"
@@ -150,7 +155,7 @@ export default async function RootLayout({
           <footer className="bg-brand-surface border-t border-brand-border text-brand-muted py-12 sm:py-16 px-5 sm:px-6 mt-auto">
             <div className="max-w-6xl mx-auto grid sm:grid-cols-2 md:grid-cols-4 gap-8 sm:gap-10">
               {/* Brand */}
-              <div className="sm:col-span-2">
+              <div className={hasSocial ? "sm:col-span-2 md:col-span-1" : "sm:col-span-2"}>
                 <p className="font-display text-brand-text text-2xl font-semibold mb-3">
                   Vy Coffee
                 </p>
@@ -183,6 +188,53 @@ export default async function RootLayout({
                   ))}
                 </ul>
               </div>
+
+              {/* Social */}
+              {hasSocial && (
+                <div>
+                  <p className="text-brand-text font-semibold text-sm mb-4 uppercase tracking-wider">
+                    Mạng xã hội
+                  </p>
+                  <ul className="space-y-2.5 text-sm">
+                    {settings?.facebookUrl && (
+                      <li>
+                        <a
+                          href={settings.facebookUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="hover:text-brand-accent transition-colors"
+                        >
+                          Facebook
+                        </a>
+                      </li>
+                    )}
+                    {settings?.instagramUrl && (
+                      <li>
+                        <a
+                          href={settings.instagramUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="hover:text-brand-accent transition-colors"
+                        >
+                          Instagram
+                        </a>
+                      </li>
+                    )}
+                    {settings?.tiktokUrl && (
+                      <li>
+                        <a
+                          href={settings.tiktokUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="hover:text-brand-accent transition-colors"
+                        >
+                          TikTok
+                        </a>
+                      </li>
+                    )}
+                  </ul>
+                </div>
+              )}
 
               {/* Hours — từ Sanity, fallback hardcode */}
               <div>

@@ -67,6 +67,9 @@ export interface SanitySiteSettings {
   openingHours?: string;
   heroImage?: SanityImage;
   storyContent?: PortableTextBlock[];
+  facebookUrl?: string;
+  instagramUrl?: string;
+  tiktokUrl?: string;
 }
 
 // ─── Contact Form ─────────────────────────────────────────────────────────────

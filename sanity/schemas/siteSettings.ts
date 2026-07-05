@@ -102,6 +102,21 @@ export const siteSettingsSchema = defineType({
         },
       ],
     }),
+    defineField({
+      name: "facebookUrl",
+      title: "Link Facebook",
+      type: "url",
+    }),
+    defineField({
+      name: "instagramUrl",
+      title: "Link Instagram",
+      type: "url",
+    }),
+    defineField({
+      name: "tiktokUrl",
+      title: "Link TikTok",
+      type: "url",
+    }),
   ],
   preview: {
     select: { title: "siteName", subtitle: "tagline" },

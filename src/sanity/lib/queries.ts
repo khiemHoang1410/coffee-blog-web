@@ -149,7 +149,10 @@ const siteSettingsQuery = groq`
     phone,
     openingHours,
     heroImage { ..., "alt": coalesce(alt, "") },
-    storyContent
+    storyContent,
+    facebookUrl,
+    instagramUrl,
+    tiktokUrl
   }
 `;
 
