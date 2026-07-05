@@ -20,17 +20,10 @@ export const menuItemSchema = defineType({
     defineField({
       name: "category",
       title: "Danh mục",
-      type: "string",
-      options: {
-        list: [
-          { title: "Espresso", value: "espresso" },
-          { title: "Pour Over", value: "pour-over" },
-          { title: "Trà", value: "tra" },
-          { title: "Khác", value: "khac" },
-        ],
-        layout: "radio",
-      },
+      type: "reference",
+      to: [{ type: "category" }],
       validation: (Rule) => Rule.required(),
+      description: "Chọn liên kết đến danh mục thực đơn của món này",
     }),
     defineField({
       name: "price",

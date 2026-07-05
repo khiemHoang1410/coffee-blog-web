@@ -35,6 +35,14 @@ export default defineConfig({
               .child(
                 S.documentTypeList("menuItem").title("Danh sách thực đơn")
               ),
+            // Danh mục thực đơn
+            S.listItem()
+              .title("Danh mục thực đơn")
+              .id("category")
+              .icon(() => "📂")
+              .child(
+                S.documentTypeList("category").title("Danh mục thực đơn")
+              ),
             // Bài viết Blog
             S.listItem()
               .title("Bài viết Blog")

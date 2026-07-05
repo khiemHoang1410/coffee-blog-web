@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import { getAllMenuItems } from "@/sanity/lib/queries";
+import { getAllMenuItems, getAllCategories } from "@/sanity/lib/queries";
 import { urlFor } from "@/sanity/lib/image";
 import type { SanityMenuItem } from "@/types";
 import FadeUp from "@/components/FadeUp";
@@ -10,13 +10,6 @@ export const metadata: Metadata = {
   description:
     "Khám phá thực đơn cà phê specialty của chúng tôi — từ espresso đậm đà đến pour over tinh tế.",
 };
-
-const CATEGORIES = [
-  { value: "espresso", label: "Espresso" },
-  { value: "pour-over", label: "Pour Over" },
-  { value: "tra", label: "Trà" },
-  { value: "khac", label: "Khác" },
-] as const;
 
 function formatPrice(price: number): string {
   return price.toLocaleString("vi-VN") + "đ";
@@ -72,13 +65,19 @@ function MenuCard({ item }: { item: SanityMenuItem }) {
 }
 
 export default async function MenuPage() {
-  const allItems = await getAllMenuItems();
+  const [allItems, categories] = await Promise.all([
+    getAllMenuItems(),
+    getAllCategories(),
+  ]);
 
-  // Group theo category
-  const grouped = CATEGORIES.map((cat) => ({
-    ...cat,
-    items: allItems.filter((item) => item.category === cat.value),
-  })).filter((cat) => cat.items.length > 0);
+  // Group theo category động
+  const grouped = categories
+    .map((cat) => ({
+      value: cat.slug,
+      label: cat.title,
+      items: allItems.filter((item) => item.category?._id === cat._id),
+    }))
+    .filter((cat) => cat.items.length > 0);
 
   return (
     <main className="min-h-screen bg-brand-bg text-brand-text">

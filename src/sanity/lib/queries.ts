@@ -4,6 +4,7 @@ import type {
   SanityPost,
   SanityMenuItem,
   SanitySiteSettings,
+  SanityCategory,
 } from "@/types";
 
 // ─── GROQ Queries ──────────────────────────────────────────────────────────
@@ -66,12 +67,28 @@ const allPostsForSitemapQuery = groq`
   }
 `;
 
+const allCategoriesQuery = groq`
+  *[_type == "category"] | order(order asc, title asc) {
+    _id,
+    _type,
+    title,
+    "slug": slug.current,
+    order
+  }
+`;
+
 const allMenuItemsQuery = groq`
   *[_type == "menuItem" && available == true] | order(order asc, name asc) {
     _id,
     name,
     "slug": slug.current,
-    category,
+    category-> {
+      _id,
+      _type,
+      title,
+      "slug": slug.current,
+      order
+    },
     price,
     description,
     image { ..., "alt": coalesce(alt, "") },
@@ -82,11 +99,17 @@ const allMenuItemsQuery = groq`
 `;
 
 const menuItemsByCategoryQuery = groq`
-  *[_type == "menuItem" && available == true && category == $category] | order(order asc, name asc) {
+  *[_type == "menuItem" && available == true && category->slug.current == $category] | order(order asc, name asc) {
     _id,
     name,
     "slug": slug.current,
-    category,
+    category-> {
+      _id,
+      _type,
+      title,
+      "slug": slug.current,
+      order
+    },
     price,
     description,
     image { ..., "alt": coalesce(alt, "") },
@@ -101,7 +124,13 @@ const featuredMenuItemsQuery = groq`
     _id,
     name,
     "slug": slug.current,
-    category,
+    category-> {
+      _id,
+      _type,
+      title,
+      "slug": slug.current,
+      order
+    },
     price,
     description,
     image { ..., "alt": coalesce(alt, "") },
@@ -186,6 +215,13 @@ export async function getFeaturedMenuItems(): Promise<SanityMenuItem[]> {
   return sanityFetch<SanityMenuItem[]>({
     query: featuredMenuItemsQuery,
     tags: ["menuItem"],
+  });
+}
+
+export async function getAllCategories(): Promise<SanityCategory[]> {
+  return sanityFetch<SanityCategory[]>({
+    query: allCategoriesQuery,
+    tags: ["category"],
   });
 }
 

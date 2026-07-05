@@ -30,6 +30,16 @@ export interface SanityPost {
   body?: PortableTextBlock[];
 }
 
+// ─── Sanity Category ──────────────────────────────────────────────────────────
+
+export interface SanityCategory {
+  _id: string;
+  _type: "category";
+  title: string;
+  slug: string;
+  order?: number;
+}
+
 // ─── Sanity Menu Item ─────────────────────────────────────────────────────────
 
 export interface SanityMenuItem {
@@ -37,7 +47,7 @@ export interface SanityMenuItem {
   _type: "menuItem";
   name: string;
   slug?: string;
-  category: "espresso" | "pour-over" | "tra" | "khac";
+  category: SanityCategory;
   price: number;
   description?: string;
   image?: SanityImage;
