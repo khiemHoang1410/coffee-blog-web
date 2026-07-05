@@ -103,6 +103,18 @@ export const siteSettingsSchema = defineType({
       ],
     }),
     defineField({
+      name: "contactEmail",
+      title: "Email nhận liên hệ",
+      type: "string",
+      description: "Email này sẽ nhận tin nhắn từ form liên hệ trên website",
+      validation: (Rule) =>
+        Rule.custom((value) => {
+          if (!value) return true; // optional
+          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          return emailRegex.test(value) || "Email không hợp lệ";
+        }),
+    }),
+    defineField({
       name: "facebookUrl",
       title: "Link Facebook",
       type: "url",

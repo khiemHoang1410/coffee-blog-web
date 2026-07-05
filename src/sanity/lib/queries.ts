@@ -25,6 +25,25 @@ const allPostsQuery = groq`
   }
 `;
 
+/** Phân trang — chỉ lấy đúng số bài cần hiển thị */
+const paginatedPostsQuery = groq`
+  *[_type == "post" && defined(slug.current)] | order(publishedAt desc) [$from...$to] {
+    _id,
+    title,
+    "slug": slug.current,
+    publishedAt,
+    description,
+    thumbnail { ..., "alt": coalesce(alt, "") },
+    tags,
+    author,
+    seoKeywords,
+    seoDescription
+  }
+`;
+
+/** Đếm tổng số bài — dùng kèm paginatedPostsQuery để tính số trang */
+const postCountQuery = groq`count(*[_type == "post" && defined(slug.current)])`;
+
 /** Một bài viết cụ thể — kèm body */
 const postBySlugQuery = groq`
   *[_type == "post" && slug.current == $slug][0] {
@@ -152,7 +171,8 @@ const siteSettingsQuery = groq`
     storyContent,
     facebookUrl,
     instagramUrl,
-    tiktokUrl
+    tiktokUrl,
+    contactEmail
   }
 `;
 
@@ -161,6 +181,28 @@ const siteSettingsQuery = groq`
 export async function getAllPosts(): Promise<SanityPost[]> {
   return sanityFetch<SanityPost[]>({
     query: allPostsQuery,
+    tags: ["post"],
+  });
+}
+
+/** Lấy bài viết theo trang — chỉ tải đúng số cần thiết (GROQ-side pagination) */
+export async function getPaginatedPosts(
+  page: number,
+  perPage: number,
+): Promise<SanityPost[]> {
+  const from = (page - 1) * perPage;
+  const to = from + perPage - 1;
+  return sanityFetch<SanityPost[]>({
+    query: paginatedPostsQuery,
+    params: { from, to },
+    tags: ["post"],
+  });
+}
+
+/** Đếm tổng số bài — dùng để tính totalPages */
+export async function getPostCount(): Promise<number> {
+  return sanityFetch<number>({
+    query: postCountQuery,
     tags: ["post"],
   });
 }

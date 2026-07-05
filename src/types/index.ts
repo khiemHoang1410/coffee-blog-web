@@ -70,6 +70,7 @@ export interface SanitySiteSettings {
   facebookUrl?: string;
   instagramUrl?: string;
   tiktokUrl?: string;
+  contactEmail?: string;
 }
 
 // ─── Contact Form ─────────────────────────────────────────────────────────────
