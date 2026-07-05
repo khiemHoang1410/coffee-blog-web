@@ -20,7 +20,7 @@ export const sanityClient = createClient({
   projectId,
   dataset,
   apiVersion,
-  useCdn: true, // CDN cache cho production (faster, slightly stale)
+  useCdn: process.env.NODE_ENV === "production", // Bật CDN trong production để tối ưu tốc độ, tắt trong dev để cập nhật dữ liệu tức thì
   perspective: "published",
 });
 
