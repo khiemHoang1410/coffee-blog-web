@@ -5,14 +5,7 @@ import { createPortal } from "react-dom";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useTheme } from "next-themes";
-
-const NAV_LINKS = [
-  { href: "/", label: "Trang chủ" },
-  { href: "/about", label: "Về chúng tôi" },
-  { href: "/menu", label: "Menu" },
-  { href: "/blog", label: "Blog" },
-  { href: "/contact", label: "Liên hệ" },
-] as const;
+import { NAV_LINKS } from "@/lib/nav";
 
 export default function MobileNav() {
   const [open, setOpen] = useState(false);

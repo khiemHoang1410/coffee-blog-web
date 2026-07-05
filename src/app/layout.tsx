@@ -5,9 +5,11 @@ import Image from "next/image";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import ThemeToggle from "@/components/ThemeToggle";
 import MobileNav from "@/components/MobileNav";
+import DesktopNav from "@/components/DesktopNav";
 import ScrollToTop from "@/components/ScrollToTop";
 import AdminEasterEgg from "@/components/AdminEasterEgg";
 import { getSiteSettings } from "@/sanity/lib/queries";
+import { NAV_LINKS } from "@/lib/nav";
 import "./globals.css";
 
 const plusJakarta = Plus_Jakarta_Sans({
@@ -67,14 +69,6 @@ export const metadata: Metadata = {
   },
 };
 
-const NAV_LINKS = [
-  { href: "/", label: "Trang chủ" },
-  { href: "/about", label: "Về chúng tôi" },
-  { href: "/menu", label: "Menu" },
-  { href: "/blog", label: "Blog" },
-  { href: "/contact", label: "Liên hệ" },
-] as const;
-
 export default async function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
@@ -122,21 +116,8 @@ export default async function RootLayout({
               </Link>
 
               <div className="flex items-center gap-6">
-                <nav aria-label="Main navigation" className="hidden md:block">
-                  <ul className="flex items-center gap-8">
-                    {NAV_LINKS.map(({ href, label }) => (
-                      <li key={href}>
-                        <Link
-                          href={href}
-                          className="text-sm font-medium text-brand-muted hover:text-brand-text transition-colors relative group"
-                        >
-                          {label}
-                          <span className="absolute -bottom-0.5 left-0 w-0 group-hover:w-full h-px bg-brand-accent transition-all duration-300" />
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                </nav>
+                {/* Desktop Nav — Client Component for active link highlighting */}
+                <DesktopNav />
 
                 {/* Theme toggle */}
                 <ThemeToggle />
@@ -157,10 +138,10 @@ export default async function RootLayout({
               {/* Brand */}
               <div className={hasSocial ? "sm:col-span-2 md:col-span-1" : "sm:col-span-2"}>
                 <p className="font-display text-brand-text text-2xl font-semibold mb-3">
-                  Vy Coffee
+                  {settings?.siteName ?? "Vy Coffee"}
                 </p>
                 <p className="text-sm leading-relaxed max-w-xs mb-6">
-                  Specialty coffee — Hạt cà phê chất lượng cao, rang tươi và pha chế tỉ mỉ mỗi ngày.
+                  {settings?.tagline ?? "Specialty coffee — Hạt cà phê chất lượng cao, rang tươi và pha chế tỉ mỉ mỗi ngày."}
                 </p>
                 <div className="flex items-center gap-3">
                   <div className="w-6 h-px bg-brand-accent" />
