@@ -6,7 +6,7 @@ import type { SanityMenuItem } from "@/types";
 import FadeUp from "@/components/FadeUp";
 
 export const metadata: Metadata = {
-  title: "Menu | Café Stories",
+  title: "Menu | Vy Coffee",
   description:
     "Khám phá thực đơn cà phê specialty của chúng tôi — từ espresso đậm đà đến pour over tinh tế.",
 };

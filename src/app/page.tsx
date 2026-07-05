@@ -8,9 +8,9 @@ import FadeUp from "@/components/FadeUp";
 import ScrambleText from "@/components/ScrambleText";
 
 export const metadata: Metadata = {
-  title: "Café Stories — Specialty Coffee",
+  title: "Vy Coffee — Specialty Coffee",
   description:
-    "Chào mừng bạn đến với Café Stories — nơi mỗi tách cà phê là một câu chuyện. Specialty coffee được tuyển chọn kỹ lưỡng từ các farm uy tín.",
+    "Chào mừng bạn đến với Vy Coffee — nơi mỗi tách cà phê là một câu chuyện. Specialty coffee được tuyển chọn kỹ lưỡng từ các farm uy tín.",
 };
 
 export default async function HomePage() {

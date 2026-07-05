@@ -39,7 +39,7 @@ export default function AdminEasterEgg() {
         className="cursor-default select-none"
         title=""
       >
-        © {new Date().getFullYear()} Café Stories. All rights reserved.
+        © {new Date().getFullYear()} Vy Coffee. All rights reserved.
       </span>
 
       {showLink && (

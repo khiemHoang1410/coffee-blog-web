@@ -9,11 +9,11 @@ import FadeUp from "@/components/FadeUp";
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
 
 export const metadata: Metadata = {
-  title: "Blog | Café Stories",
+  title: "Blog | Vy Coffee",
   description:
     "Những câu chuyện về cà phê, hành trình tìm kiếm hạt cà phê specialty và triết lý thưởng thức của chúng tôi.",
   openGraph: {
-    title: "Blog | Café Stories",
+    title: "Blog | Vy Coffee",
     description:
       "Những câu chuyện về cà phê, hành trình tìm kiếm hạt cà phê specialty và triết lý thưởng thức.",
     url: `${SITE_URL}/blog`,
@@ -36,7 +36,7 @@ export default async function BlogPage() {
         </FadeUp>
         <FadeUp delay={100}>
           <h1 className="font-display text-4xl sm:text-5xl md:text-6xl font-light text-brand-text">
-            Café Stories
+            Vy Coffee
           </h1>
         </FadeUp>
         <FadeUp delay={200}>

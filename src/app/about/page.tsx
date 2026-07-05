@@ -8,9 +8,9 @@ import type { SanityImage } from "@/types";
 import FadeUp from "@/components/FadeUp";
 
 export const metadata: Metadata = {
-  title: "Về chúng tôi | Café Stories",
+  title: "Về chúng tôi | Vy Coffee",
   description:
-    "Câu chuyện đằng sau Café Stories — từ đam mê đến từng tách cà phê specialty.",
+    "Câu chuyện đằng sau Vy Coffee — từ đam mê đến từng tách cà phê specialty.",
 };
 
 // ─── PortableText custom components ──────────────────────────────────────────
@@ -92,7 +92,7 @@ export default async function AboutPage() {
             <div className="absolute inset-0">
               <Image
                 src={heroImageUrl}
-                alt={settings?.heroImage?.alt ?? "Café Stories"}
+                alt={settings?.heroImage?.alt ?? "Vy Coffee"}
                 fill
                 className="object-cover opacity-20"
                 priority

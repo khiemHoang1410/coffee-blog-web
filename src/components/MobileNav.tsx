@@ -89,7 +89,7 @@ export default function MobileNav() {
                 className="font-display text-lg font-semibold tracking-wide"
                 style={{ color: textColor }}
               >
-                Café Stories
+                Vy Coffee
               </span>
               <button
                 onClick={() => setOpen(false)}

@@ -1,4 +1,5 @@
 import { defineField, defineType } from "sanity";
+import React from "react";
 
 export const postSchema = defineType({
   name: "post",
@@ -85,7 +86,23 @@ export const postSchema = defineType({
             { title: "Normal", value: "normal" },
             { title: "H2", value: "h2" },
             { title: "H3", value: "h3" },
-            { title: "Quote", value: "blockquote" },
+            {
+              title: "Quote",
+              value: "blockquote",
+              component: ({ children }: { children: React.ReactNode }) =>
+                React.createElement(
+                  "blockquote",
+                  {
+                    style: {
+                      borderLeft: "4px solid #a8e63d",
+                      paddingLeft: "1rem",
+                      fontStyle: "italic",
+                      margin: "1.5rem 0",
+                    },
+                  },
+                  children
+                ),
+            },
           ],
           marks: {
             decorators: [

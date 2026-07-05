@@ -48,7 +48,7 @@ const client = createClient({
 const siteSettings = {
   _id: "siteSettings",          // singleton — fixed ID
   _type: "siteSettings",
-  siteName: "Café Stories",
+  siteName: "Vy Coffee",
   tagline: "Không chỉ là cà phê",
   description:
     "Chúng tôi tin rằng mỗi tách cà phê là một khoảnh khắc — khoảnh khắc để chậm lại, để cảm nhận, và để kết nối với những điều thực sự quan trọng.",
@@ -64,7 +64,7 @@ const siteSettings = {
         {
           _type: "span",
           _key: "s1",
-          text: "Café Stories ra đời từ một câu hỏi đơn giản: tại sao cà phê ngon lại phải đi kèm với không gian ồn ào và vội vã? Chúng tôi muốn tạo ra một nơi khác — nơi bạn có thể thực sự thưởng thức từng ngụm.",
+          text: "Vy Coffee ra đời từ một câu hỏi đơn giản: tại sao cà phê ngon lại phải đi kèm với không gian ồn ào và vội vã? Chúng tôi muốn tạo ra một nơi khác — nơi bạn có thể thực sự thưởng thức từng ngụm.",
         },
       ],
     },
@@ -112,7 +112,7 @@ const siteSettings = {
         {
           _type: "span",
           _key: "s5",
-          text: "Chúng tôi không chạy theo xu hướng. Chúng tôi tập trung vào chất lượng thực sự — từ nguồn gốc hạt, quy trình rang, đến kỹ thuật pha chế. Mỗi barista tại Café Stories đều được đào tạo để hiểu cà phê, không chỉ để pha cà phê.",
+          text: "Chúng tôi không chạy theo xu hướng. Chúng tôi tập trung vào chất lượng thực sự — từ nguồn gốc hạt, quy trình rang, đến kỹ thuật pha chế. Mỗi barista tại Vy Coffee đều được đào tạo để hiểu cà phê, không chỉ để pha cà phê.",
         },
       ],
     },
@@ -354,7 +354,7 @@ const posts = [
           {
             _type: "span",
             _key: "s7",
-            text: "Tại Café Stories, chúng tôi làm việc trực tiếp với các farm tại Đà Lạt và nhập khẩu một số single origin từ Ethiopia, Colombia. Mỗi lô hàng đều được rang thử và đánh giá trước khi phục vụ khách hàng.",
+            text: "Tại Vy Coffee, chúng tôi làm việc trực tiếp với các farm tại Đà Lạt và nhập khẩu một số single origin từ Ethiopia, Colombia. Mỗi lô hàng đều được rang thử và đánh giá trước khi phục vụ khách hàng.",
           },
         ],
       },
@@ -441,7 +441,7 @@ const posts = [
           {
             _type: "span",
             _key: "s7",
-            text: "Không có câu trả lời đúng hay sai. Nếu bạn cần năng lượng nhanh và thích vị đậm đà — espresso là bạn. Nếu bạn muốn ngồi xuống, thư giãn và khám phá hương vị — pour over sẽ không làm bạn thất vọng. Tại Café Stories, chúng tôi yêu cả hai.",
+            text: "Không có câu trả lời đúng hay sai. Nếu bạn cần năng lượng nhanh và thích vị đậm đà — espresso là bạn. Nếu bạn muốn ngồi xuống, thư giãn và khám phá hương vị — pour over sẽ không làm bạn thất vọng. Tại Vy Coffee, chúng tôi yêu cả hai.",
           },
         ],
       },

@@ -17,6 +17,8 @@ const nextConfig: NextConfig = {
     ],
   },
   reactStrictMode: true,
+  // Cho phép kết nối HMR từ mọi tên miền ngrok trong quá trình phát triển (dev)
+  allowedDevOrigins: ["*.ngrok-free.app"],
 };
 
 export default nextConfig;

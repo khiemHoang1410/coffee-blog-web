@@ -4,7 +4,7 @@ import ContactForm from "./ContactForm";
 import FadeUp from "@/components/FadeUp";
 
 export const metadata: Metadata = {
-  title: "Liên hệ | Café Stories",
+  title: "Liên hệ | Vy Coffee",
   description:
     "Liên hệ với chúng tôi để đặt bàn, hỏi về menu hoặc chỉ đơn giản là nói chuyện về cà phê.",
 };

@@ -45,7 +45,7 @@ export async function generateMetadata({
   const metaDescription = post.seoDescription ?? post.description;
 
   return {
-    title: `${post.title} | Café Stories`,
+    title: `${post.title} | Vy Coffee`,
     description: metaDescription,
     // seoKeywords hiển thị trong meta keywords
     keywords: post.seoKeywords ?? post.tags,
@@ -193,7 +193,7 @@ export default async function BlogPostPage({ params }: PageProps) {
     headline: post.title,
     description: post.seoDescription ?? post.description,
     image: thumbUrl,
-    author: { "@type": "Person", name: post.author ?? "Café Stories" },
+    author: { "@type": "Person", name: post.author ?? "Vy Coffee" },
     datePublished: post.publishedAt,
     url: `${SITE_URL}/blog/${post.slug}`,
     keywords: (post.seoKeywords ?? post.tags ?? []).join(", "),
