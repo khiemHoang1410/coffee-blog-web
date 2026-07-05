@@ -19,6 +19,8 @@ interface PageProps {
 
 // ─── Static Generation ────────────────────────────────────────────────────────
 
+export const dynamicParams = true;
+
 export async function generateStaticParams(): Promise<{ slug: string }[]> {
   const slugs = await getAllSlugs();
   return slugs.map((slug) => ({ slug }));

@@ -8,32 +8,28 @@ import Link from "next/link";
  * để hiện link vào Sanity Studio.
  */
 export default function AdminEasterEgg() {
-  const [clicks, setClicks] = useState(0);
   const [showLink, setShowLink] = useState(false);
+  const clicksRef = useRef(0);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const handleClick = useCallback(() => {
     if (showLink) return;
 
-    setClicks((prev) => {
-      const next = prev + 1;
+    clicksRef.current += 1;
 
-      // Reset timer mỗi lần click
+    // Reset timer mỗi lần click
+    if (timerRef.current) clearTimeout(timerRef.current);
+    timerRef.current = setTimeout(() => {
+      clicksRef.current = 0;
+      timerRef.current = null;
+    }, 3000);
+
+    if (clicksRef.current >= 5) {
       if (timerRef.current) clearTimeout(timerRef.current);
-      timerRef.current = setTimeout(() => {
-        setClicks(0);
-        timerRef.current = null;
-      }, 3000);
-
-      if (next >= 5) {
-        clearTimeout(timerRef.current!);
-        timerRef.current = null;
-        setShowLink(true);
-        return 0;
-      }
-
-      return next;
-    });
+      timerRef.current = null;
+      clicksRef.current = 0;
+      setShowLink(true);
+    }
   }, [showLink]);
 
   return (

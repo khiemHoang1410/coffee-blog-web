@@ -125,7 +125,6 @@ export default function ScrambleText({
       clearTimeout(timeoutRef.current);
       cancelAnimationFrame(rafRef.current);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [text]);
 
   return (
