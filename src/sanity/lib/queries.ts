@@ -109,6 +109,7 @@ const allMenuItemsQuery = groq`
       order
     },
     price,
+    sizes[] { _key, size, price },
     description,
     image { ..., "alt": coalesce(alt, "") },
     featured,
@@ -130,6 +131,7 @@ const menuItemsByCategoryQuery = groq`
       order
     },
     price,
+    sizes[] { _key, size, price },
     description,
     image { ..., "alt": coalesce(alt, "") },
     featured,
@@ -151,6 +153,7 @@ const featuredMenuItemsQuery = groq`
       order
     },
     price,
+    sizes[] { _key, size, price },
     description,
     image { ..., "alt": coalesce(alt, "") },
     featured,

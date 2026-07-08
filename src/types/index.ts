@@ -42,13 +42,22 @@ export interface SanityCategory {
 
 // ─── Sanity Menu Item ─────────────────────────────────────────────────────────
 
+export interface SanityItemSize {
+  _key: string;
+  size: "S" | "M" | "L";
+  price: number;
+}
+
 export interface SanityMenuItem {
   _id: string;
   _type: "menuItem";
   name: string;
   slug?: string;
   category: SanityCategory;
-  price: number;
+  /** Giá base (thường = giá S). Dùng khi món không có sizes. */
+  price?: number;
+  /** Giá theo size S/M/L. Nếu có thì ưu tiên dùng thay cho price. */
+  sizes?: SanityItemSize[];
   description?: string;
   image?: SanityImage;
   featured: boolean;

@@ -27,9 +27,55 @@ export const menuItemSchema = defineType({
     }),
     defineField({
       name: "price",
-      title: "Giá (VNĐ)",
+      title: "Giá cơ bản (VNĐ)",
       type: "number",
-      validation: (Rule) => Rule.required().positive(),
+      validation: (Rule) => Rule.positive(),
+      description: "Giá hiển thị mặc định (thường là giá size S). Tự động lấy từ sizes nếu để trống.",
+    }),
+    defineField({
+      name: "sizes",
+      title: "Giá theo size",
+      type: "array",
+      description: "Để trống nếu món chỉ có một giá duy nhất",
+      of: [
+        {
+          type: "object",
+          name: "sizePrice",
+          title: "Size",
+          fields: [
+            defineField({
+              name: "size",
+              title: "Tên size",
+              type: "string",
+              validation: (Rule) => Rule.required(),
+              options: {
+                list: [
+                  { title: "S – Nhỏ", value: "S" },
+                  { title: "M – Vừa", value: "M" },
+                  { title: "L – Lớn", value: "L" },
+                ],
+              },
+            }),
+            defineField({
+              name: "price",
+              title: "Giá (VNĐ)",
+              type: "number",
+              validation: (Rule) => Rule.required().positive(),
+            }),
+          ],
+          preview: {
+            select: { title: "size", subtitle: "price" },
+            prepare({ title, subtitle }) {
+              return {
+                title: `Size ${title}`,
+                subtitle: subtitle
+                  ? `${subtitle.toLocaleString("vi-VN")}đ`
+                  : "Chưa có giá",
+              };
+            },
+          },
+        },
+      ],
     }),
     // Mô tả cảm xúc — không phải kỹ thuật
     defineField({
@@ -87,20 +133,16 @@ export const menuItemSchema = defineType({
   preview: {
     select: {
       title: "name",
-      subtitle: "category",
+      categoryTitle: "category.title",
       media: "image",
       price: "price",
     },
-    prepare({ title, subtitle, media, price }) {
-      const categoryMap: Record<string, string> = {
-        espresso: "Espresso",
-        "pour-over": "Pour Over",
-        tra: "Trà",
-        khac: "Khác",
-      };
+    prepare({ title, categoryTitle, media, price }) {
       return {
         title,
-        subtitle: `${categoryMap[subtitle] ?? subtitle} — ${price?.toLocaleString("vi-VN")}đ`,
+        subtitle: [categoryTitle, price ? `${price.toLocaleString("vi-VN")}đ` : null]
+          .filter(Boolean)
+          .join(" — "),
         media,
       };
     },
