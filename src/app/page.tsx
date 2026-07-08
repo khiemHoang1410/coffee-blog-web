@@ -35,22 +35,22 @@ export default async function HomePage() {
         <div className="absolute inset-0 bg-[linear-gradient(135deg,rgba(10,15,10,0.92)_0%,rgba(10,15,10,0.25)_50%,rgba(10,15,10,0.82)_100%)]" />
 
         {/* Đường kẻ trang trí góc trên trái */}
-        <div className="absolute top-0 left-0 w-px h-40 bg-gradient-to-b from-brand-accent/60 to-transparent ml-12 hidden md:block" />
-        <div className="absolute top-0 left-0 h-px w-40 bg-gradient-to-r from-brand-accent/60 to-transparent mt-12 hidden md:block" />
+        <div className="absolute top-0 left-0 w-px h-40 bg-gradient-to-b from-[rgba(168,230,61,0.6)] to-transparent ml-12 hidden md:block" />
+        <div className="absolute top-0 left-0 h-px w-40 bg-gradient-to-r from-[rgba(168,230,61,0.6)] to-transparent mt-12 hidden md:block" />
 
         <div className="relative w-full max-w-6xl mx-auto px-5 sm:px-6 py-20 sm:py-28">
           <div className="max-w-3xl">
             <FadeUp>
               <div className="flex items-center gap-3 mb-6 sm:mb-8">
-                <div className="w-8 h-px bg-brand-accent" />
-                <p className="text-brand-accent text-xs font-semibold uppercase tracking-[0.35em]">
+                <div className="w-8 h-px bg-[#a8e63d]" />
+                <p className="text-[#a8e63d] text-xs font-semibold uppercase tracking-[0.35em]">
                   Specialty Coffee
                 </p>
               </div>
             </FadeUp>
 
             <FadeUp delay={100}>
-              <h1 className="font-display text-brand-text text-5xl sm:text-6xl md:text-8xl font-light leading-[1.05] mb-6 sm:mb-8">
+              <h1 className="font-display text-[#e8f5e2] text-5xl sm:text-6xl md:text-8xl font-light leading-[1.05] mb-6 sm:mb-8">
                 <ScrambleText
                   text="Mỗi tách"
                   delay={200}
@@ -58,7 +58,7 @@ export default async function HomePage() {
                   iterations={6}
                   className="block"
                 />
-                <span className="block font-semibold italic text-brand-accent">
+                <span className="block font-semibold italic text-[#a8e63d]">
                   <ScrambleText
                     text="cà phê"
                     delay={500}
@@ -71,13 +71,13 @@ export default async function HomePage() {
                   delay={800}
                   speed={30}
                   iterations={6}
-                  className="block text-2xl sm:text-4xl md:text-5xl font-light mt-2 text-brand-text/65"
+                  className="block text-2xl sm:text-4xl md:text-5xl font-light mt-2 text-[rgba(232,245,226,0.65)]"
                 />
               </h1>
             </FadeUp>
 
             <FadeUp delay={200}>
-              <p className="text-brand-muted text-sm sm:text-base max-w-md mb-8 sm:mb-12 leading-relaxed">
+              <p className="text-[#7aaa72] text-sm sm:text-base max-w-md mb-8 sm:mb-12 leading-relaxed">
                 Chúng tôi tìm kiếm những hạt cà phê tốt nhất từ các farm uy tín,
                 rang tươi và pha chế với tình yêu mỗi ngày.
               </p>
@@ -87,14 +87,14 @@ export default async function HomePage() {
               <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
                 <Link
                   href="/menu"
-                  className="group relative inline-flex items-center justify-center gap-2 bg-brand-accent text-brand-bg font-semibold px-8 py-4 rounded-full text-sm tracking-wide shadow-lg shadow-brand-accent/25 hover:scale-[1.02] transition-all duration-300"
+                  className="group relative inline-flex items-center justify-center gap-2 bg-[#a8e63d] text-[#0a0f0a] font-semibold px-8 py-4 rounded-full text-sm tracking-wide shadow-lg shadow-[#a8e63d]/25 hover:scale-[1.02] transition-all duration-300"
                 >
                   Xem Menu
                   <span className="group-hover:translate-x-1 transition-transform">→</span>
                 </Link>
                 <Link
                   href="/about"
-                  className="inline-flex items-center justify-center gap-2 font-medium px-8 py-4 rounded-full text-sm tracking-wide border border-brand-text/20 text-brand-text/70 backdrop-blur-sm hover:border-brand-text/40 hover:text-brand-text transition-all duration-300 hover:scale-[1.01]"
+                  className="inline-flex items-center justify-center gap-2 font-medium px-8 py-4 rounded-full text-sm tracking-wide border border-[rgba(232,245,226,0.2)] text-[rgba(232,245,226,0.7)] backdrop-blur-sm hover:border-[rgba(232,245,226,0.4)] hover:text-[#e8f5e2] transition-all duration-300 hover:scale-[1.01]"
                 >
                   Câu chuyện của chúng tôi
                 </Link>
@@ -104,9 +104,9 @@ export default async function HomePage() {
         </div>
 
         {/* Scroll indicator */}
-        <div className="absolute bottom-10 right-12 hidden md:flex flex-col items-center gap-3 text-brand-muted/50">
+        <div className="absolute bottom-10 right-12 hidden md:flex flex-col items-center gap-3 text-[rgba(122,170,114,0.5)]">
           <span className="text-[10px] tracking-[0.3em] uppercase rotate-90 origin-center mb-4">Scroll</span>
-          <div className="w-px h-16 bg-gradient-to-b from-brand-accent/50 to-transparent" />
+          <div className="w-px h-16 bg-gradient-to-b from-[rgba(168,230,61,0.5)] to-transparent" />
         </div>
       </section>
 
