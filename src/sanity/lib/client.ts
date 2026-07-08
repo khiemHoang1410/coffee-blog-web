@@ -40,7 +40,7 @@ export const sanityFetch = cache(async function sanityFetch<T>({
 }): Promise<T> {
   return sanityClient.fetch<T>(query, params, {
     next: {
-      revalidate: 60,
+      revalidate: 21600, // 6 giờ
       tags,
     },
   });

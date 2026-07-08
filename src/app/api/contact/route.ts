@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
 import { isValidEmail } from "@/lib/utils";
-import { getSiteSettings } from "@/sanity/lib/queries";
 import type { ContactForm, ApiResponse, ValidationErrors } from "@/types";
 
 // Khởi tạo Resend client — API key lấy từ env
@@ -164,9 +163,8 @@ export async function POST(
       );
     }
 
-    // Ưu tiên email từ Sanity siteSettings, fallback về env
-    const settings = await getSiteSettings();
-    const toEmail = settings?.contactEmail ?? process.env.CONTACT_EMAIL_TO;
+    // Lấy email nhận từ env
+    const toEmail = process.env.CONTACT_EMAIL_TO;
 
     if (!toEmail) {
       console.error("Email nhận chưa được cấu hình (Sanity siteSettings.contactEmail hoặc env CONTACT_EMAIL_TO)");
