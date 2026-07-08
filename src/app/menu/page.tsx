@@ -15,6 +15,34 @@ function formatPrice(price: number): string {
   return price.toLocaleString("vi-VN") + "đ";
 }
 
+function PriceDisplay({ item }: { item: SanityMenuItem }) {
+  if (item.sizes && item.sizes.length > 0) {
+    return (
+      <div className="flex items-center gap-3 flex-wrap">
+        {item.sizes.map((s, i) => (
+          <span key={s._key} className="flex items-center gap-2.5">
+            {i > 0 && <span className="text-brand-border text-xs">·</span>}
+            <span className="text-brand-muted text-xs font-medium uppercase tracking-wide">{s.size}</span>
+            <span className="text-brand-accent font-semibold text-xs">
+              {formatPrice(s.price)}
+            </span>
+          </span>
+        ))}
+      </div>
+    );
+  }
+
+  if (item.price) {
+    return (
+      <span className="text-brand-accent font-medium text-sm">
+        {formatPrice(item.price)}
+      </span>
+    );
+  }
+
+  return null;
+}
+
 function MenuCard({ item }: { item: SanityMenuItem }) {
   const imageUrl = item.image
     ? urlFor(item.image).width(600).height(400).format("webp").url()
@@ -45,13 +73,11 @@ function MenuCard({ item }: { item: SanityMenuItem }) {
 
       {/* Thông tin */}
       <div className="flex-1 flex flex-col">
-        <div className="flex items-start justify-between gap-2 mb-2">
-          <h3 className="font-display text-brand-text text-lg font-semibold leading-snug">
+        <div className="flex flex-col gap-1 mb-2">
+          <h3 className="font-display text-brand-text text-lg font-semibold leading-snug tracking-wide">
             {item.name}
           </h3>
-          <span className="text-brand-accent font-medium text-sm whitespace-nowrap shrink-0 mt-0.5">
-            {formatPrice(item.price)}
-          </span>
+          <PriceDisplay item={item} />
         </div>
 
         {item.description && (
