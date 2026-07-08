@@ -208,7 +208,7 @@ export default async function BlogPostPage({ params }: PageProps) {
 
       <main className="min-h-screen bg-brand-bg">
         {/* Hero thumbnail */}
-        <div className="relative h-64 md:h-[28rem] w-full bg-brand-surface">
+        <div className="relative h-52 sm:h-72 md:h-[28rem] w-full bg-brand-surface">
           {thumbUrl && (
             <Image
               src={thumbUrl}
@@ -219,10 +219,10 @@ export default async function BlogPostPage({ params }: PageProps) {
               sizes="100vw"
             />
           )}
-          <div className="absolute inset-0 bg-gradient-to-t from-brand-bg via-brand-bg/40 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-brand-bg from-10% via-brand-bg/50 to-transparent" />
         </div>
 
-        <div className="max-w-3xl mx-auto px-4 -mt-20 relative z-10">
+        <div className="max-w-3xl mx-auto px-4 -mt-10 sm:-mt-16 md:-mt-24 relative z-10">
           <div className="bg-brand-surface border border-brand-border rounded-2xl p-8 mb-12">
             {/* Tags */}
             {post.tags && post.tags.length > 0 && (

@@ -19,7 +19,7 @@ export default async function HomePage() {
   return (
     <main>
       {/* ── Hero ── */}
-      <section className="relative min-h-[92vh] flex items-center overflow-hidden" style={{backgroundColor: '#0a0f0a'}}>
+      <section className="hero-dark relative min-h-[92vh] flex items-center overflow-hidden">
         {/* Ảnh nền */}
         <div className="absolute inset-0">
           <Image
@@ -31,29 +31,26 @@ export default async function HomePage() {
           />
         </div>
 
-        {/* Gradient overlay — hardcode tối, không đổi theo theme */}
-        <div
-          className="absolute inset-0"
-          style={{background: 'linear-gradient(135deg, rgba(10,15,10,0.92) 0%, rgba(10,15,10,0.25) 50%, rgba(10,15,10,0.82) 100%)'}}
-        />
+        {/* Gradient overlay */}
+        <div className="absolute inset-0 bg-[linear-gradient(135deg,rgba(10,15,10,0.92)_0%,rgba(10,15,10,0.25)_50%,rgba(10,15,10,0.82)_100%)]" />
 
         {/* Đường kẻ trang trí góc trên trái */}
-        <div className="absolute top-0 left-0 w-px h-40 bg-gradient-to-b from-[#a8e63d99] to-transparent ml-12 hidden md:block" />
-        <div className="absolute top-0 left-0 h-px w-40 bg-gradient-to-r from-[#a8e63d99] to-transparent mt-12 hidden md:block" />
+        <div className="absolute top-0 left-0 w-px h-40 bg-gradient-to-b from-brand-accent/60 to-transparent ml-12 hidden md:block" />
+        <div className="absolute top-0 left-0 h-px w-40 bg-gradient-to-r from-brand-accent/60 to-transparent mt-12 hidden md:block" />
 
         <div className="relative w-full max-w-6xl mx-auto px-5 sm:px-6 py-20 sm:py-28">
           <div className="max-w-3xl">
             <FadeUp>
               <div className="flex items-center gap-3 mb-6 sm:mb-8">
-                <div className="w-8 h-px" style={{backgroundColor: '#a8e63d'}} />
-                <p className="text-xs font-semibold uppercase tracking-[0.35em]" style={{color: '#a8e63d'}}>
+                <div className="w-8 h-px bg-brand-accent" />
+                <p className="text-brand-accent text-xs font-semibold uppercase tracking-[0.35em]">
                   Specialty Coffee
                 </p>
               </div>
             </FadeUp>
 
             <FadeUp delay={100}>
-              <h1 className="font-display text-5xl sm:text-6xl md:text-8xl font-light leading-[1.05] mb-6 sm:mb-8" style={{color: '#e8f5e2'}}>
+              <h1 className="font-display text-brand-text text-5xl sm:text-6xl md:text-8xl font-light leading-[1.05] mb-6 sm:mb-8">
                 <ScrambleText
                   text="Mỗi tách"
                   delay={200}
@@ -61,7 +58,7 @@ export default async function HomePage() {
                   iterations={6}
                   className="block"
                 />
-                <span className="block font-semibold italic" style={{color: '#a8e63d'}}>
+                <span className="block font-semibold italic text-brand-accent">
                   <ScrambleText
                     text="cà phê"
                     delay={500}
@@ -74,13 +71,13 @@ export default async function HomePage() {
                   delay={800}
                   speed={30}
                   iterations={6}
-                  className="block text-2xl sm:text-4xl md:text-5xl font-light mt-2 text-[rgba(232,245,226,0.65)]"
+                  className="block text-2xl sm:text-4xl md:text-5xl font-light mt-2 text-brand-text/65"
                 />
               </h1>
             </FadeUp>
 
             <FadeUp delay={200}>
-              <p className="text-sm sm:text-base max-w-md mb-8 sm:mb-12 leading-relaxed" style={{color: '#7aaa72'}}>
+              <p className="text-brand-muted text-sm sm:text-base max-w-md mb-8 sm:mb-12 leading-relaxed">
                 Chúng tôi tìm kiếm những hạt cà phê tốt nhất từ các farm uy tín,
                 rang tươi và pha chế với tình yêu mỗi ngày.
               </p>
@@ -90,16 +87,14 @@ export default async function HomePage() {
               <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
                 <Link
                   href="/menu"
-                  className="group relative inline-flex items-center justify-center gap-2 font-semibold px-8 py-4 rounded-full text-sm tracking-wide shadow-lg hover:scale-[1.02] transition-all duration-300"
-                  style={{backgroundColor: '#a8e63d', color: '#0a0f0a', boxShadow: '0 8px 24px rgba(168,230,61,0.25)'}}
+                  className="group relative inline-flex items-center justify-center gap-2 bg-brand-accent text-brand-bg font-semibold px-8 py-4 rounded-full text-sm tracking-wide shadow-lg shadow-brand-accent/25 hover:scale-[1.02] transition-all duration-300"
                 >
                   Xem Menu
                   <span className="group-hover:translate-x-1 transition-transform">→</span>
                 </Link>
                 <Link
                   href="/about"
-                  className="inline-flex items-center justify-center gap-2 font-medium px-8 py-4 rounded-full text-sm tracking-wide backdrop-blur-sm transition-all duration-300 hover:scale-[1.01]"
-                  style={{border: '1px solid rgba(232,245,226,0.2)', color: 'rgba(232,245,226,0.7)'}}
+                  className="inline-flex items-center justify-center gap-2 font-medium px-8 py-4 rounded-full text-sm tracking-wide border border-brand-text/20 text-brand-text/70 backdrop-blur-sm hover:border-brand-text/40 hover:text-brand-text transition-all duration-300 hover:scale-[1.01]"
                 >
                   Câu chuyện của chúng tôi
                 </Link>
@@ -109,14 +104,14 @@ export default async function HomePage() {
         </div>
 
         {/* Scroll indicator */}
-        <div className="absolute bottom-10 right-12 hidden md:flex flex-col items-center gap-3" style={{color: 'rgba(122,170,114,0.5)'}}>
+        <div className="absolute bottom-10 right-12 hidden md:flex flex-col items-center gap-3 text-brand-muted/50">
           <span className="text-[10px] tracking-[0.3em] uppercase rotate-90 origin-center mb-4">Scroll</span>
-          <div className="w-px h-16" style={{background: 'linear-gradient(to bottom, rgba(168,230,61,0.5), transparent)'}} />
+          <div className="w-px h-16 bg-gradient-to-b from-brand-accent/50 to-transparent" />
         </div>
       </section>
 
       {/* ── Marquee strip ── */}
-      <div className="bg-brand-accent py-3 overflow-hidden" style={{backgroundColor: '#a8e63d'}}>
+      <div className="bg-brand-accent py-3 overflow-hidden">
         <div className="marquee-track whitespace-nowrap text-brand-bg text-xs font-semibold uppercase tracking-[0.25em]">
           {Array(8).fill("Specialty Coffee · Rang Tươi · Farm to Cup · Pha Chế Tỉ Mỉ · ").join("")}
         </div>

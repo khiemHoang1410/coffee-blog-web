@@ -49,9 +49,9 @@ function MenuCard({ item }: { item: SanityMenuItem }) {
     : null;
 
   return (
-    <article className="group flex flex-col">
+    <article className="group flex flex-col bg-brand-surface border border-brand-border rounded-2xl overflow-hidden hover:border-brand-accent/30 transition-colors duration-300">
       {/* Ảnh */}
-      <div className="relative aspect-[4/3] overflow-hidden rounded-xl mb-4 bg-brand-surface">
+      <div className="relative aspect-[4/3] overflow-hidden bg-brand-bg">
         {imageUrl ? (
           <Image
             src={imageUrl}
@@ -61,7 +61,9 @@ function MenuCard({ item }: { item: SanityMenuItem }) {
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
           />
         ) : (
-          <div className="w-full h-full bg-brand-surface" />
+          <div className="w-full h-full bg-brand-bg flex items-center justify-center">
+            <span className="text-brand-border text-4xl">☕</span>
+          </div>
         )}
 
         {item.featured && (
@@ -72,16 +74,16 @@ function MenuCard({ item }: { item: SanityMenuItem }) {
       </div>
 
       {/* Thông tin */}
-      <div className="flex-1 flex flex-col">
-        <div className="flex flex-col gap-1 mb-2">
-          <h3 className="font-display text-brand-text text-lg font-semibold leading-snug tracking-wide">
+      <div className="flex-1 flex flex-col p-4">
+        <div className="flex flex-col gap-1.5 mb-2">
+          <h3 className="font-display text-brand-text text-base font-semibold leading-snug tracking-wide">
             {item.name}
           </h3>
           <PriceDisplay item={item} />
         </div>
 
         {item.description && (
-          <p className="text-brand-muted text-sm leading-relaxed line-clamp-3">
+          <p className="text-brand-muted text-xs leading-relaxed line-clamp-2 mt-1">
             {item.description}
           </p>
         )}
@@ -130,7 +132,7 @@ export default async function MenuPage() {
       </section>
 
       {/* Menu theo category */}
-      <div className="max-w-5xl mx-auto px-5 sm:px-4 py-12 sm:py-16 space-y-16 sm:space-y-20">
+      <div className="max-w-5xl mx-auto px-5 sm:px-4 py-10 sm:py-14 space-y-12 sm:space-y-16">
         {grouped.length === 0 && (
           <p className="text-center text-brand-muted py-20">
             Menu đang được cập nhật. Vui lòng quay lại sớm!
